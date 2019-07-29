@@ -1,0 +1,36 @@
+#editor {
+    background: white;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    left: 18%;
+    top: 7%;
+}
+
+#action_list {
+    width: 16%;
+    height: 95%;
+    background: #242424;
+    position: absolute;
+    top: 5%;
+    left: 0;
+    overflow: hidden;
+}
+
+#menubar {
+    width: 1536px;
+    height: 36px;
+    background: #242424;
+    position: absolute;
+    top: 0;
+}
+
+#operation_bar {
+    width: 30%;
+    height: 95%;
+    background: #242424;
+    position: absolute;
+    top: 5%;
+    right: 0;
+}
+
