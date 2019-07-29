@@ -23,4 +23,4 @@ class PromptAction {
 
 const NewAction = new PromptAction("New");
 
-export { NewAction };
+export { NewAction, PromptAction };
