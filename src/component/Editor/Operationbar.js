@@ -58,7 +58,7 @@ function GroupSelector(props) {
     ));
     const selectorItem = props.child.map((shape) => (
         <div className="selector_item">
-            <div className="item_id">{shape.shape}</div>
+            <div className="item_id" onClick={() => props.select(shape)}>{shape.shape}</div>
             <div className="item_button">
                 <Icon type="plus-square" style={{ marginRight: "3px" }}
                       onClick={() => props.addSameElement(shape)}/>
@@ -99,7 +99,7 @@ function Regulator(props) {
     let result = [];
     let j = 0;
     for (let i in Selected) {
-        if (i !== "shape") {
+        if (i !== "shape" && i !== "elements") {
             result[j++] = (
                 <div className="regulator">
                     <div className="regulator_title">{i}</div>

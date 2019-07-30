@@ -4,10 +4,8 @@ import Menubar from './Menubar';
 import ActionList from './ActionList';
 import Operationbar from "./Operationbar";
 import { NewAction } from "../../function/PromptAction";
-import { Circle, Rect, Line, Ellipse } from "../../function/Structure/Shape";
-import GroupShape from '../../function/Structure/GroupShape';
-
-let id = 0;
+import { Circle, Rect, Line, Ellipse } from "../../function/ShapeStructure/Shape";
+import GroupShape from '../../function/ShapeStructure/GroupShape';
 
 class Editor extends React.Component {
     constructor(props) {

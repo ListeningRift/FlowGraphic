@@ -15,16 +15,24 @@ class Circle {
         this.shape = "Circle";
     }
 
-    result() {
+    result(animate) {
         return <circle cx={this.cx} cy={this.cy} r={this.r}
                        stroke={this.stroke} strokeWidth={this.strokewidth} strokeOpacity={this.strokeopacity}
-                       fill={this.fill} fillOpacity={this.fillopacity}/>
+                       fill={this.fill} fillOpacity={this.fillopacity}>
+                        {
+                            animate !== undefined ? (animate.map(animate => animate.result())) : null
+                        }
+                       </circle>
     }
 
-    editor() {
+    editor(animate) {
         return <circle cx={this.cx * 0.5} cy={this.cy * 0.5} r={this.r * 0.5}
                        stroke={this.stroke} strokeWidth={this.strokewidth * 0.5} strokeOpacity={this.strokeopacity}
-                       fill={this.fill} fillOpacity={this.fillopacity}/>
+                       fill={this.fill} fillOpacity={this.fillopacity}>
+                        {
+                            animate !== undefined ? (animate.map(animate => animate.editor())) : null
+                        }
+                       </circle>
     }
 
     list() {
@@ -58,16 +66,24 @@ class Rect {
         this.shape = "Rect";
     }
 
-    result() {
+    result(animate) {
         return <rect x={this.x} y={this.y} width={this.width} height={this.height}
                      stroke={this.stroke} strokeWidth={this.strokewidth} strokeOpacity={this.strokeopacity}
-                     fill={this.fill} fillOpacity={this.fillopacity}/>
+                     fill={this.fill} fillOpacity={this.fillopacity}>
+                    {
+                        animate !== undefined ? (animate.map(animate => animate.result())) : null
+                    }
+                     </rect>
     }
     
-    editor() {
+    editor(animate) {
         return <rect x={this.x * 0.5} y={this.y * 0.5} width={this.width * 0.5} height={this.height * 0.5}
                      stroke={this.stroke} strokeWidth={this.strokewidth * 0.5} strokeOpacity={this.strokeopacity}
-                     fill={this.fill} fillOpacity={this.fillopacity}/>
+                     fill={this.fill} fillOpacity={this.fillopacity}>
+                    {
+                        animate !== undefined ? (animate.map(animate => animate.editor())) : null
+                    }
+                     </rect>
     }
     
     list() {
@@ -101,16 +117,24 @@ class Ellipse {
         this.shape = "Ellipse";
     }
 
-    result() {
+    result(animate) {
         return <ellipse cx={this.cx} cy={this.cy} rx={this.rx} ry={this.ry}
                      stroke={this.stroke} strokeWidth={this.strokewidth} strokeOpacity={this.strokeopacity}
-                     fill={this.fill} fillOpacity={this.fillopacity}/>
+                     fill={this.fill} fillOpacity={this.fillopacity}>
+                    {
+                        animate !== undefined ? (animate.map(animate => animate.result())) : null
+                    }
+                     </ellipse>
     }
 
-    editor() {
+    editor(animate) {
         return <ellipse cx={this.cx * 0.5} cy={this.cy * 0.5} rx={this.rx * 0.5} ry={this.ry * 0.5}
                      stroke={this.stroke} strokeWidth={this.strokewidth * 0.5} strokeOpacity={this.strokeopacity}
-                     fill={this.fill} fillOpacity={this.fillopacity}/>
+                     fill={this.fill} fillOpacity={this.fillopacity}>
+                    {
+                        animate !== undefined ? (animate.map(animate => animate.editor())) : null
+                    }
+                     </ellipse>
     }
 
     list() {
@@ -142,9 +166,13 @@ class Line {
         this.shape = "Line";
     }
 
-    result() {
+    result(animate) {
         return <line x1={this.x1} y1={this.y1} x2={this.x2} y2={this.y2}
-                     stroke={this.stroke} strokeWidth={this.strokewidth} strokeOpacity={this.strokeopacity}/>
+                     stroke={this.stroke} strokeWidth={this.strokewidth} strokeOpacity={this.strokeopacity}>
+                    {
+                        animate !== undefined ? (animate.map(animate => animate.result())) : null
+                    }
+                     </line>
     }
 
     editor() {
