@@ -1,68 +1,42 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FlowGraphic
+**基于SVG的演示动画编辑器**
 
-## Available Scripts
+本意为制作一个类似 PowerPoint 的演示文稿制作编辑器，但是经过整体设计之后决定在原本的设计思想上进行一定更改。
 
-In the project directory, you can run:
+原本的演示文稿制作聚焦于分页，每页呈现不同的效果，包括动画等部分的添加需要一定技术与经验，所以我在这方面做了一定的改变，***将制作的聚焦点放在动作上***。
 
-### `npm start`
+这样可以更加方便的制作流畅的演示动画，但是当这个想法被确定时，我发现他已经不止局限于演示，更像是一种动画的制作，当触发条件等多个功能完善之后，设置可以制作游戏。这让我不知道这种改变是好还是坏，但我决定制作下去。
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+***
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### 技术栈：
 
-### `npm test`
+**前端**
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> React(包含react-router)
+>
+> Ant Design
 
-### `npm run build`
+**后端**
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> Golang
+>
+> MongoDB
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+整体并没有采用太多技术，只是能保证基本运行的一些必要技术，后续功能复杂后可能会采取如 Redux 等略复杂一些的技术进行优化。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+***
 
-### `npm run eject`
+#### SVG图像编辑
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+目前有简单的SVG图像编辑功能，非常简陋，在复杂图像的编辑方面会很麻烦，所以在菜单栏中加上了一个之前找到的非常好用的在线SVG编辑器 ***Method Draw*** 的链接，可以直接打开，SVG制作部分真的要向这位作者学习。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+在此附上该编辑器的Github链接：<https://github.com/methodofaction/Method-Draw>
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+***
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### 动画编辑
 
-## Learn More
+动画只是基于SVG原生 <animate> 系列标签，包括<set>，<animate>，<animateMotion>， <animateTransform>，自由组合完成动画。
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+后续会考虑使用一些强大SVG框架制作。
