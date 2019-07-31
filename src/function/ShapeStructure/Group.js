@@ -1,6 +1,6 @@
 import React from "react";
 
-class GroupShape {
+class Group {
     constructor(elements) {
         this.elements = elements;
         this.shape = "Group"
@@ -39,4 +39,4 @@ class GroupShape {
     }
 }
 
-export default GroupShape;
+export default Group;

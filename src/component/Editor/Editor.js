@@ -1,11 +1,11 @@
 import React from 'react';
-import './Editor.css';
+import '../../css/Editor.css';
 import Menubar from './Menubar';
 import ActionList from './ActionList';
 import Operationbar from "./Operationbar";
 import { NewAction } from "../../function/PromptAction";
-import { Circle, Rect, Line, Ellipse } from "../../function/ShapeStructure/Shape";
-import GroupShape from '../../function/ShapeStructure/GroupShape';
+import { Circle, Rect, Line, Ellipse, Text } from "../../function/ShapeStructure/Shape";
+import Group from '../../function/ShapeStructure/Group';
 
 class Editor extends React.Component {
     constructor(props) {
@@ -14,29 +14,45 @@ class Editor extends React.Component {
         const b = new Rect({x: 300, y: 300, width: 100, height: 100});
         const c = new Line({x1: 50, y1: 30,x2: 500, y2: 300, stroke: "black"});
         this.state = {
+            // actionList为所有动作的列表
             actionList: [[a, c], [b]],
+            // finishedActionList已完成的动作，组合后的列表
+            finishedActionList: [],
+            // preview为当前编辑栏中的动作
             preview: undefined,
+            // selected编辑栏中动作被选中元素
             selected: undefined,
+
+            // 元素组合状态，true时为元素组合状态，false时正常状态
             groupState: false,
-            groupElement: []
+            // 元素组合数组，准备组合的元素的数组
+            groupElement: [],
+
+            // 动作组合状态，true时为动作组合状态，false时正常状态
+            combinationState: false,
+            // 动作组合数组，准备组合的动作的数组
+            combinationAction: []
         }
     }
 
     handleActionChange = k => {
-      const actionList = this.state.actionList;
-      this.setState({
-          preview: actionList[k]
-      })
+        const actionList = this.state.actionList;
+        this.setState({
+            preview: actionList[k]
+        })
     };
 
+
+    // 删除某动作
     remove = k => {
-      let actionList = this.state.actionList;
-      actionList.splice(k, 1);
-      this.setState({
-          actionList: actionList
-      })
+        let actionList = this.state.actionList;
+        actionList.splice(k, 1);
+        this.setState({
+            actionList: actionList
+        })
     };
 
+    // 添加新空动作
     addNew = () => {
         const actionList = this.state.actionList;
         const newActionList = actionList.concat([[NewAction]]);
@@ -45,14 +61,17 @@ class Editor extends React.Component {
         })
     };
 
+    // 添加与某动作相同的动作
     addSame = k => {
-      let actionList = this.state.actionList;
-      actionList.splice(k+1, 0, actionList[k]);
-      this.setState({
-          actionList: actionList
-      })
+        let actionList = this.state.actionList;
+        actionList.splice(k+1, 0, actionList[k]);
+        this.setState({
+            actionList: actionList
+        })
     };
 
+
+    // 选中编辑栏内某元素
     select = element => {
         if (!this.state.groupState) {
             this.setState({
@@ -67,12 +86,15 @@ class Editor extends React.Component {
         }
     };
 
+    // 取消选中
     unselect = () => {
         this.setState({
             selected: undefined
         })
     };
 
+
+    // 调整元素属性
     readjust = (e, i) => {
         let { actionList, preview, selected } = this.state;
         const preIndex = actionList.indexOf(preview);
@@ -83,19 +105,20 @@ class Editor extends React.Component {
         })
     };
 
+    // 添加新元素
     addNewElement = (shape) => {
         let { actionList, preview } = this.state;
         const preIndex = actionList.indexOf(preview);
         let newElement;
         switch (shape) {
             case "Circle":newElement = new Circle({cx:0, cy:0, r:0});
-            break;
+                break;
             case "Rect":newElement = new Rect({x:0, y:0, width:0, height:0});
-            break;
+                break;
             case "Ellipse":newElement = new Ellipse({cx:0, cy:0, rx:0, ry:0});
-            break;
+                break;
             case "Line":newElement = new Line({x1:0, y1:0, x2:0, y2:0, stroke:"black"});
-            break;
+                break;
         }
         if (preview[0] !== NewAction) {
             preview.push(newElement);
@@ -108,6 +131,7 @@ class Editor extends React.Component {
         })
     };
 
+    // 添加与某元素相同的元素
     addSameElement = (element) => {
         let { actionList, preview } = this.state;
         const preIndex = actionList.indexOf(preview);
@@ -118,6 +142,7 @@ class Editor extends React.Component {
         })
     };
 
+    // 删除某元素
     removeElement = (element) => {
         let { actionList, preview } = this.state;
         const preIndex = actionList.indexOf(preview);
@@ -129,13 +154,15 @@ class Editor extends React.Component {
         })
     };
 
+
+    // 将列表中准备组合的元素组合起来
     group = () => {
         let { actionList, preview, groupElement } = this.state;
         groupElement.forEach((element) => {
             const index = preview.indexOf(element);
             preview.splice(index, 1);
         });
-        const group = new GroupShape(groupElement);
+        const group = new Group(groupElement);
         const preIndex = actionList.indexOf(preview);
         preview.push(group);
         actionList[preIndex] = preview;
@@ -146,12 +173,7 @@ class Editor extends React.Component {
         })
     };
 
-    addGroup = () => {
-        this.setState({
-            groupState: true
-        })
-    };
-
+    // 拆开组合元素
     ungroup = (group) => {
         let { actionList, preview } = this.state;
         const groupIndex = preview.indexOf(group);
@@ -166,6 +188,14 @@ class Editor extends React.Component {
         })
     };
 
+    // 更改组合状态，开始组合
+    addGroup = () => {
+        this.setState({
+            groupState: true
+        })
+    };
+
+    // 更改组合状态，取消组合
     cancelGroup = () => {
         this.setState({
             groupState: false,
@@ -173,13 +203,66 @@ class Editor extends React.Component {
         })
     };
 
+    // 删除组合元素
     removeGroupElement = (element) => {
         let { groupElement } = this.state;
         const eleIndex = groupElement.indexOf(element);
         groupElement.splice(eleIndex, 1);
-        console.log(groupElement);
         this.setState({
             groupElement: groupElement
+        })
+    };
+
+
+    // 将数组内动作组合起来
+    combinate = () => {
+        let { actionList, finishedActionList, combinationAction } = this.state;
+        combinationAction.forEach((action) => {
+            const i = actionList.indexOf(action);
+            actionList.splice(i, 1)
+        });
+        finishedActionList.push(combinationAction);
+        this.setState({
+            actionList: actionList,
+            finishedActionList: finishedActionList,
+            combinationAction: [],
+            combinationState: false
+        })
+    };
+
+    // 拆开组合动作
+    dissolve = (combination) => {
+        let { actionList, finishedActionList } = this.state;
+        const comIndex = finishedActionList.indexOf(combination);
+        finishedActionList.splice(comIndex, 1);
+        actionList.concat(combination);
+        this.setState({
+            actionList: actionList,
+            finishedActionList: finishedActionList
+        })
+    };
+
+    // 更改组合状态，开始组合动作
+    StartCombination = () => {
+        this.setState({
+            combinationState: true
+        })
+    };
+
+    // 更改组合状态，取消组合动作
+    CancelCombination = () => {
+        this.setState({
+            combinationState: false
+        })
+    };
+
+    // 删除组合动作
+    removeCombination = (combination) => {
+        let { finishedActionList } = this.state;
+        const i = finishedActionList.indexOf(combination);
+        finishedActionList.splice(i, 1);
+        this.setState({
+            finishedActionList: finishedActionList
         })
     };
 
@@ -217,17 +300,17 @@ class Editor extends React.Component {
                 </div>
                 <div id="operation_bar">
                     <Operationbar
-                    element={this.state.preview} Selected={this.state.selected}
-                    groupState={this.state.groupState} groupElement={this.state.groupElement}
-                    select={this.select} readjust={this.readjust}
-                    addNewElement={this.addNewElement}
-                    addSameElement={this.addSameElement}
-                    removeElement={this.removeElement}
-                    addGroup={this.addGroup}
-                    ungroup={this.ungroup}
-                    cancelGroup={this.cancelGroup}
-                    removeGroupElement={this.removeGroupElement}
-                    group={this.group}/>
+                        element={this.state.preview} Selected={this.state.selected}
+                        groupState={this.state.groupState} groupElement={this.state.groupElement}
+                        select={this.select} readjust={this.readjust}
+                        addNewElement={this.addNewElement}
+                        addSameElement={this.addSameElement}
+                        removeElement={this.removeElement}
+                        addGroup={this.addGroup}
+                        ungroup={this.ungroup}
+                        cancelGroup={this.cancelGroup}
+                        removeGroupElement={this.removeGroupElement}
+                        group={this.group}/>
                 </div>
             </div>
         )

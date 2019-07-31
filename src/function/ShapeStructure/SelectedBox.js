@@ -1,6 +1,6 @@
 import React from "react";
 
-function Selectbox(props) {
+function SelectBox(props) {
     return (
         <g stroke="#FCB401" fill="#FCB401">
             <rect x={Number(props.x) - 1} y={Number(props.y) - 1}
@@ -13,4 +13,4 @@ function Selectbox(props) {
     )
 }
 
-export default Selectbox;
+export default SelectBox;

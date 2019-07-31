@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "antd";
-import './Operationbar.css';
+import '../../css/Operationbar.css';
 
 function Separator() {
     return <div style={{ borderTop: "solid #C0C0C0 1px", margin: "10px 2px" }}> </div>

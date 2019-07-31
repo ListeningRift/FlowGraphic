@@ -1,0 +1,85 @@
+.action_item {
+    width: 100%;
+    height: 13.62%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.action_item>svg {
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: white;
+    box-sizing: border-box;
+ }
+
+.action_item>svg:hover {
+    border-color: #FCB401;
+    border-width: 2px;
+}
+
+#new_plus {
+    width: 80%;
+    height: 12.8%;
+    background: white;
+    margin-left: 10%;
+    margin-top: 5%;
+    border: 1px dashed black;
+    box-sizing: border-box;
+}
+
+#new_plus:hover {
+    border-width: 2px;
+    border-color: #FCB401;
+}
+
+#actionList_operation {
+    width: 100%;
+    height: 6%;
+    background-color: #E7EAED;
+}
+
+#combination {
+    float: right;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+#action_combination {
+    position: absolute;
+    width: 100%;
+    height: 94%;
+    left: 100%;
+    bottom: 0;
+    background: #242424;
+}
+
+#combination_title {
+    color: #E7EAED;
+    font-size: 16px;
+    margin-left: 7%;
+}
+
+#combination_items {
+    width: 100%;
+    height: 90%;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    background-color: #E7EAED;
+    overflow-y: scroll;
+}
+
+.combination_item {
+    width: 100%;
+    height: 15.13%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.combination_item>svg {
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: white;
+    box-sizing: border-box;
+}
