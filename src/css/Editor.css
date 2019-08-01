@@ -1,7 +1,7 @@
 #editor {
     background: white;
-    width: 50%;
-    height: 50%;
+    width: 50vw;
+    height: 50vh;
     position: absolute;
     left: 18%;
     top: 7%;
@@ -9,7 +9,7 @@
 
 #action_list {
     width: 16%;
-    height: 95%;
+    height: calc(100% - 38px);
     background: #242424;
     position: absolute;
     top: 5%;
@@ -17,7 +17,7 @@
 }
 
 #menubar {
-    width: 1536px;
+    width: 100%;
     height: 36px;
     background: #242424;
     position: absolute;

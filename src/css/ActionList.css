@@ -6,8 +6,8 @@
 }
 
 .action_item>svg {
-    width: 80%;
-    height: 100%;
+    width: 12vw;
+    height: 12vh;
     border: 1px solid black;
     background-color: white;
     box-sizing: border-box;
@@ -19,8 +19,8 @@
 }
 
 #new_plus {
-    width: 80%;
-    height: 12.8%;
+    width: 12vw;
+    height: 12vh;
     background: white;
     margin-left: 10%;
     margin-top: 5%;
@@ -33,12 +33,6 @@
     border-color: #FCB401;
 }
 
-#actionList_operation {
-    width: 100%;
-    height: 6%;
-    background-color: #E7EAED;
-}
-
 #combination {
     float: right;
     margin-top: 8px;
@@ -48,7 +42,7 @@
 #action_combination {
     position: absolute;
     width: 100%;
-    height: 94%;
+    height: 95.74%;
     left: 100%;
     bottom: 0;
     background: #242424;
@@ -57,7 +51,9 @@
 #combination_title {
     color: #E7EAED;
     font-size: 16px;
-    margin-left: 7%;
+    padding-left: 7%;
+    width: 100%;
+    height: 3%;
 }
 
 #combination_items {
@@ -65,7 +61,6 @@
     height: 90%;
     margin-top: 10px;
     margin-bottom: 7px;
-    background-color: #E7EAED;
     overflow-y: scroll;
 }
 
@@ -77,9 +72,14 @@
 }
 
 .combination_item>svg {
-    width: 80%;
-    height: 100%;
+    width: 12vw;
+    height: 12vh;
     border: 1px solid black;
     background-color: white;
     box-sizing: border-box;
 }
+.combination_button {
+    width: 100%;
+    height: 3%;
+}
+

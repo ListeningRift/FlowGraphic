@@ -36,8 +36,8 @@ class Circle {
     }
 
     list() {
-        return <circle cx={this.cx * 0.128} cy={this.cy * 0.128} r={this.r * 0.128}
-                       stroke={this.stroke} strokeWidth={this.strokeWidth * 0.128} strokeOpacity={this.strokeOpacity}
+        return <circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
+                       stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}/>
     }
 
@@ -87,8 +87,8 @@ class Rect {
     }
     
     list() {
-        return <rect x={this.x * 0.128} y={this.y * 0.128} width={this.width * 0.128} height={this.height * 0.128}
-                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.128} strokeOpacity={this.strokeOpacity}
+        return <rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
+                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}/>
     }
 
@@ -138,7 +138,7 @@ class Ellipse {
     }
 
     list() {
-        return <ellipse cx={this.cx * 0.128} cy={this.cy * 0.128} rx={this.rx * 0.128} ry={this.ry * 0.128}
+        return <ellipse cx={this.cx * 0.12} cy={this.cy * 0.12} rx={this.rx * 0.12} ry={this.ry * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}/>
     }
@@ -181,7 +181,7 @@ class Line {
     }
 
     list() {
-        return <line x1={this.x1 * 0.128} y1={this.y1 * 0.128} x2={this.x2 * 0.128} y2={this.y2 * 0.128}
+        return <line x1={this.x1 * 0.12} y1={this.y1 * 0.12} x2={this.x2 * 0.12} y2={this.y2 * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}/>
     }
 
@@ -236,10 +236,10 @@ class Text {
     }
 
     list() {
-        return <text x={this.x * 0.128} y={this.y * 0.128}
+        return <text x={this.x * 0.12} y={this.y * 0.12}
                      fontSize={this.fontSize}
                      fill={this.fill} fillOpacity={this.fillOpacity}
-                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.128} strokeOpacity={this.strokeOpacity}/>
+                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}/>
     }
 
     selected() {

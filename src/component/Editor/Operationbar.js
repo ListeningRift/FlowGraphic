@@ -45,14 +45,14 @@ function Selector(props) {
 }
 
 function GroupSelector(props) {
-    const groupItem = props.groupElement.map((element) => (
+    const groupItem = props.groupElement.map((element, index) => (
         <div className="group_item">
             <div className="group_item_id">
-                {element.shape}
+                { element.shape }
             </div>
             <div className="group_item_button">
                 <Icon type="minus-square"
-                      onClick={() => props.removeGroupElement(element)}/>
+                      onClick={() => props.removeGroupElement(index)}/>
             </div>
         </div>
     ));

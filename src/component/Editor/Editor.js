@@ -17,7 +17,7 @@ class Editor extends React.Component {
             // actionList为所有动作的列表
             actionList: [[a, c], [b]],
             // finishedActionList已完成的动作，组合后的列表
-            finishedActionList: [],
+            finishedActionList: [[c], [a], [b]],
             // preview为当前编辑栏中的动作
             preview: undefined,
             // selected编辑栏中动作被选中元素
@@ -35,17 +35,36 @@ class Editor extends React.Component {
         }
     }
 
-    handleActionChange = k => {
-        const actionList = this.state.actionList;
-        this.setState({
-            preview: actionList[k]
-        })
+    // 处理点击动作事件
+    handleActionClick = (k, from) => {
+        if (this.state.combinationState) {
+            if (from === "actionList") {
+                const { actionList, combinationAction } = this.state;
+                combinationAction.push(actionList[k]);
+                this.setState({
+                    combinationAction: combinationAction
+                })
+            }
+            else {
+                const { finishedActionList, combinationAction } = this.state;
+                combinationAction.push(finishedActionList[k]);
+                this.setState({
+                    combinationAction: combinationAction
+                })
+            }
+        }
+        else {
+            const actionList = this.state.actionList;
+            this.setState({
+                preview: actionList[k]
+            })
+        }
     };
 
 
     // 删除某动作
-    remove = k => {
-        let actionList = this.state.actionList;
+    removeAction = k => {
+        let { actionList } = this.state;
         actionList.splice(k, 1);
         this.setState({
             actionList: actionList
@@ -53,8 +72,8 @@ class Editor extends React.Component {
     };
 
     // 添加新空动作
-    addNew = () => {
-        const actionList = this.state.actionList;
+    addNewAction = () => {
+        const { actionList } = this.state;
         const newActionList = actionList.concat([[NewAction]]);
         this.setState({
             actionList: newActionList
@@ -62,8 +81,8 @@ class Editor extends React.Component {
     };
 
     // 添加与某动作相同的动作
-    addSame = k => {
-        let actionList = this.state.actionList;
+    addSameAction = k => {
+        let { actionList } = this.state;
         actionList.splice(k+1, 0, actionList[k]);
         this.setState({
             actionList: actionList
@@ -204,24 +223,32 @@ class Editor extends React.Component {
     };
 
     // 删除组合元素
-    removeGroupElement = (element) => {
+    removeGroupElement = k => {
         let { groupElement } = this.state;
-        const eleIndex = groupElement.indexOf(element);
-        groupElement.splice(eleIndex, 1);
+        groupElement.splice(k, 1);
         this.setState({
             groupElement: groupElement
         })
     };
 
 
+    // 更改组合状态，开始组合动作
+    ChangeCombination = () => {
+        this.setState({
+            combinationState: !this.state.combinationState
+        })
+    };
+
     // 将数组内动作组合起来
-    combinate = () => {
+    combination = () => {
         let { actionList, finishedActionList, combinationAction } = this.state;
+        let actions = [];
         combinationAction.forEach((action) => {
+            actions = actions.concat(action);
             const i = actionList.indexOf(action);
-            actionList.splice(i, 1)
+            actionList.splice(i, 1);
         });
-        finishedActionList.push(combinationAction);
+        finishedActionList.push(actions);
         this.setState({
             actionList: actionList,
             finishedActionList: finishedActionList,
@@ -230,39 +257,41 @@ class Editor extends React.Component {
         })
     };
 
-    // 拆开组合动作
-    dissolve = (combination) => {
-        let { actionList, finishedActionList } = this.state;
-        const comIndex = finishedActionList.indexOf(combination);
-        finishedActionList.splice(comIndex, 1);
-        actionList.concat(combination);
+    // 拆开组合动作，暂不支持
+    // dissolve = (combination) => {
+    //     let { actionList, finishedActionList } = this.state;
+    //     const comIndex = finishedActionList.indexOf(combination);
+    //     finishedActionList.splice(comIndex, 1);
+    //     actionList.concat(combination);
+    //     this.setState({
+    //         actionList: actionList,
+    //         finishedActionList: finishedActionList
+    //     })
+    // };
+
+    // 添加与某组合动作相同的动作
+    addSameCombination = k => {
+        const { finishedActionList } = this.state;
+        finishedActionList.splice(k+1, 0, finishedActionList[k]);
         this.setState({
-            actionList: actionList,
             finishedActionList: finishedActionList
-        })
-    };
-
-    // 更改组合状态，开始组合动作
-    StartCombination = () => {
-        this.setState({
-            combinationState: true
-        })
-    };
-
-    // 更改组合状态，取消组合动作
-    CancelCombination = () => {
-        this.setState({
-            combinationState: false
         })
     };
 
     // 删除组合动作
-    removeCombination = (combination) => {
+    removeCombination = k => {
         let { finishedActionList } = this.state;
-        const i = finishedActionList.indexOf(combination);
-        finishedActionList.splice(i, 1);
+        finishedActionList.splice(k, 1);
         this.setState({
             finishedActionList: finishedActionList
+        })
+    };
+
+    removeCombinationAction = k => {
+        let { combinationAction } = this.state;
+        combinationAction.splice(k, 1);
+        this.setState({
+            combinationAction: combinationAction
         })
     };
 
@@ -292,10 +321,18 @@ class Editor extends React.Component {
                 <div id="action_list">
                     <ActionList
                         actionList={this.state.actionList}
-                        handleActionChange={this.handleActionChange}
-                        addNew={this.addNew}
-                        addSame={this.addSame}
-                        remove={this.remove}
+                        finishedActionList={this.state.finishedActionList}
+                        combinationState={this.state.combinationState}
+                        combinationAction={this.state.combinationAction}
+                        handleActionClick={this.handleActionClick}
+                        addNewAction={this.addNewAction}
+                        addSameAction={this.addSameAction}
+                        removeAction={this.removeAction}
+                        combination={this.combination}
+                        ChangeCombination={this.ChangeCombination}
+                        addSameCombination={this.addSameCombination}
+                        removeCombination={this.removeCombination}
+                        removeCombinationAction={this.removeCombinationAction}
                     />
                 </div>
                 <div id="operation_bar">
