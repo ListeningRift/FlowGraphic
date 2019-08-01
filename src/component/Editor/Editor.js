@@ -4,8 +4,8 @@ import Menubar from './Menubar';
 import ActionList from './ActionList';
 import Operationbar from "./Operationbar";
 import { NewAction } from "../../function/PromptAction";
-import { Circle, Rect, Line, Ellipse, Text } from "../../function/ShapeStructure/Shape";
-import Group from '../../function/ShapeStructure/Group';
+import { Circle, Rect, Line, Ellipse, Text } from "../../function/Shape/Shape";
+import Group from '../../function/Shape/Group';
 
 class Editor extends React.Component {
     constructor(props) {
@@ -137,6 +137,8 @@ class Editor extends React.Component {
             case "Ellipse":newElement = new Ellipse({cx:0, cy:0, rx:0, ry:0});
                 break;
             case "Line":newElement = new Line({x1:0, y1:0, x2:0, y2:0, stroke:"black"});
+                break;
+            case "Text":newElement = new Text({x:0, y:0, content: "New"});
                 break;
         }
         if (preview[0] !== NewAction) {

@@ -15,7 +15,7 @@
 
 > React(包含react-router)
 >
-> Ant Design
+> Ant Design(部分组件兼容性有问题，后续使用更多的组件进行页面优化)
 
 **后端**
 
@@ -37,6 +37,10 @@
 
 #### 动画编辑
 
-动画只是基于SVG原生 <animate> 系列标签，包括<set>，<animate>，<animateMotion>， <animateTransform>，自由组合完成动画。
+动画只是基于SVG原生 \<animate> 系列标签，包括\<set>，\<animate>，\<animateMotion>， \<animateTransform>，自由组合完成动画。
 
 后续会考虑使用一些强大SVG框架制作。
+
+***
+
+**后序添加使用文档**

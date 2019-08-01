@@ -116,7 +116,10 @@ function Regulator(props) {
 
 class Operationbar extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            openKey: "Regulator"
+        }
     }
 
     choose = (condition) => {
@@ -130,8 +133,21 @@ class Operationbar extends React.Component {
         return result
     };
 
+    onOpenChange = () => {
+        if (this.state.openKey === "Regulator") {
+            this.setState({
+                openKey: "Selector"
+            })
+        }
+        else {
+            this.setState({
+                openKey: "Regulator"
+            })
+        }
+    };
+
     render() {
-        const shapes = ["Circle", "Rect", "Ellipse", "Line"];
+        const shapes = ["Circle", "Rect", "Ellipse", "Line", "Text"];
         const selectors = shapes.map((shape) => (
             <Selector title={shape}
                       child={this.choose(shape)}
@@ -142,8 +158,10 @@ class Operationbar extends React.Component {
         ));
         return (
             <div id="operation">
-                <span style={{ fontSize: "15px", marginLeft: "15px", color: "#E7EAED" }}>Selector</span>
-                <div id="selectors">
+                <div style={{ fontSize: "15px", marginLeft: "15px", color: "#E7EAED",
+                    width: "100%", height: "30px", lineHeight: "30px" }}
+                     onClick={this.onOpenChange}>Selector</div>
+                <div id="selectors" style={{ display: this.state.openKey === "Selector" ? null : "none" }}>
                     { selectors }
                     <GroupSelector title="Group"
                                    child={this.choose("Group")}
@@ -160,6 +178,9 @@ class Operationbar extends React.Component {
                 </div>
                 <Separator/>
                 <div id="regulators">
+                    <div style={{ fontSize: "15px", marginLeft: "15px", color: "#E7EAED",
+                        width: "100%", height: "30px", lineHeight: "30px" }}
+                         onClick={this.onOpenChange}>Regulator</div>
                     <Regulator readjust={this.props.readjust} Selected={this.props.Selected}/>
                 </div>
             </div>

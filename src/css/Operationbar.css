@@ -9,6 +9,7 @@
 #selectors {
     width: 100%;
     margin-top: 5px;
+    transition: height 0.5s;
 }
 
 .selector {
