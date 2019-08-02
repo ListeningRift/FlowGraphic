@@ -54,13 +54,20 @@ class Editor extends React.Component {
             }
         }
         else {
-            const actionList = this.state.actionList;
-            this.setState({
-                preview: actionList[k]
-            })
+            if (from === "actionList") {
+                const { actionList } = this.state;
+                this.setState({
+                    preview: actionList[k]
+                })
+            }
+            else {
+                const { finishedActionList } = this.state;
+                this.setState({
+                    preview: finishedActionList[k]
+                })
+            }
         }
     };
-
 
     // 删除某动作
     removeAction = k => {
@@ -350,6 +357,9 @@ class Editor extends React.Component {
                         cancelGroup={this.cancelGroup}
                         removeGroupElement={this.removeGroupElement}
                         group={this.group}/>
+                </div>
+                <div id="animation_bar">
+
                 </div>
             </div>
         )

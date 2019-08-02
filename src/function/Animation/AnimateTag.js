@@ -188,3 +188,5 @@ class AnimateMotion {
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
 }
+
+export { Animate, AnimateMotion, AnimateTransform };

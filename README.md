@@ -37,9 +37,18 @@
 
 #### 动画编辑
 
-动画只是基于SVG原生 \<animate> 系列标签，包括\<set>，\<animate>，\<animateMotion>， \<animateTransform>，自由组合完成动画。
+动画只是基于SVG原生 \<animate> 系列SMIL动画，包括 \<animate>，\<animateMotion>， \<animateTransform>，自由组合完成动画。
 
 后续会考虑使用一些强大SVG框架制作。
+
+***
+
+#### 后续发展方向
+
+在实现基本功能后陆续实现：
+1. 因Chrome对SMIL动画的支持问题，后续动画将尝试使用 'react-transition-group' 插件替换动画方式，不断寻找或自创更加适合的动画模式。
+2. 使用更加便利，功能更加强大的图像编辑功能。
+3. 优化编辑器对不同浏览器的支持情况，目前开发阶段，只在新版本Chrome上进行开发测试。
 
 ***
 

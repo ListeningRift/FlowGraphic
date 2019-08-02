@@ -33,3 +33,13 @@
     right: 0;
 }
 
+#animation_bar {
+    position: absolute;
+    left: 16%;
+    bottom: 0;
+    width: 54%;
+    height: calc(86% - 50vh + 35px);
+    background-color: #242424;
+    border-right: 1px solid #E7EAED;
+}
+
