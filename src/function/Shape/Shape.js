@@ -18,7 +18,7 @@ class Circle {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
+        this.allAnimate = this.allAnimate.concat(animate)
     }
 
     result() {
@@ -71,7 +71,7 @@ class Rect {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
+        this.allAnimate = this.allAnimate.concat(animate)
     }
 
     result() {
@@ -124,7 +124,7 @@ class Ellipse {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
+        this.allAnimate = this.allAnimate.concat(animate)
     }
 
     result() {
@@ -175,7 +175,7 @@ class Line {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
+        this.allAnimate = this.allAnimate.concat(animate)
     }
 
     result() {
@@ -230,7 +230,7 @@ class Text {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
+        this.allAnimate = this.allAnimate.concat(animate)
     }
 
     result() {

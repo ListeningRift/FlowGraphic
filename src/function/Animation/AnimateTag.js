@@ -1,13 +1,13 @@
 import React from 'react';
 
 class Animate {
-    constructor({id, attributeName,
+    constructor({name, id, attributeName,
         from, to, values, by, 
         begin, end, dur, 
         calcMode, keyTimes, keySplines,
-        autoReverse, accelerate, decelerate,
         repeatCount, repeatDur, fill, 
         accumulate, additive, restart}) {
+        this.name = name;
         this.id = id;
 
         this.attributeName = attributeName;
@@ -26,10 +26,6 @@ class Animate {
         this.keyTimes = keyTimes;
         this.keySplines = keySplines;
 
-        this.autoReverse = autoReverse;
-        this.accelerate = accelerate;
-        this.decelerate = decelerate;
-
         this.repeatCount = repeatCount;
         this.repeatDur = repeatDur;
         this.fill = fill;
@@ -45,7 +41,6 @@ class Animate {
         from={this.from} to={this.to} values={this.values} by={this.by}
         begin={this.begin} end={this.end} dur={this.dur} 
         calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
-        autoReverse={this.autoReverse} accelerate={this.accelerate} decelerate={this.decelerate}
         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
@@ -65,12 +60,13 @@ class Animate {
 }
 
 class AnimateTransform {
-    constructor({id, type,
+    constructor({name, id, type,
         from, to, values, by,
         begin, end, dur,
         calcMode, keyTimes, keySplines,
         repeatCount, repeatDur, fill,
         accumulate, additive, restart}) {
+        this.name = name;
         this.id = id;
 
         this.attributeName = "transform";
@@ -105,7 +101,6 @@ class AnimateTransform {
                         from={this.from} to={this.to} values={this.values} by={this.by}
                         begin={this.begin} end={this.end} dur={this.dur}
                         calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
-                        autoReverse={this.autoReverse} accelerate={this.accelerate} decelerate={this.decelerate}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
@@ -125,14 +120,14 @@ class AnimateTransform {
 }
 
 class AnimateMotion {
-    constructor({id,
+    constructor({name, id,
         path, rotate,
         from, to, values, by,
         begin, end, dur,
         calcMode, keyTimes, keySplines,
-        autoReverse, accelerate, decelerate,
         repeatCount, repeatDur, fill,
         accumulate, additive, restart}) {
+        this.name = name;
         this.id = id;
 
         this.path = path;
@@ -151,10 +146,6 @@ class AnimateMotion {
         this.keyTimes = keyTimes;
         this.keySplines = keySplines;
 
-        this.autoReverse = autoReverse;
-        this.accelerate = accelerate;
-        this.decelerate = decelerate;
-
         this.repeatCount = repeatCount;
         this.repeatDur = repeatDur;
         this.fill = fill;
@@ -170,7 +161,6 @@ class AnimateMotion {
                         from={this.from} to={this.to} values={this.values} by={this.by}
                         begin={this.begin} end={this.end} dur={this.dur}
                         calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
-                        autoReverse={this.autoReverse} accelerate={this.accelerate} decelerate={this.decelerate}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
