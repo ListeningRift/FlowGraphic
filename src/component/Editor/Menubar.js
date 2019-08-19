@@ -81,7 +81,7 @@ class Menus extends React.Component {
                     </div>
                 ) : null}
             </div>
-            <a href="https://editor.method.ac/" target="_blank"
+            <a href="https://editor.method.ac/" target="_blank" rel="noopener noreferrer"
                style={{ extDecoration: "none" }}>
                 <div className="menu" style={{ width: "100px" }}>
                     <div className="menutitle">

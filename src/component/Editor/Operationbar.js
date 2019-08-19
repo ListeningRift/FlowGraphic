@@ -1,6 +1,10 @@
 import React from "react";
-import { Icon } from "antd";
+import { Icon, Tabs, Tag, Button } from "antd";
+import 'antd/dist/antd.css';
 import '../../css/Operationbar.css';
+
+const { TabPane } = Tabs;
+const { CheckableTag } = Tag;
 
 function Separator() {
     return <div style={{ borderTop: "solid #C0C0C0 1px", margin: "10px 2px" }}> </div>
@@ -10,7 +14,7 @@ function Selector(props) {
     // if (props.child !== undefined) {
         const selectorItem = props.child.map((shape) => (
             <div className="selector_item">
-                <div className="item_id" onClick={() => props.select(shape)}>{shape.shape}</div>
+                <div className="item_id" onClick={() => props.select(shape)}>{ shape.shape }</div>
                 <div className="item_button">
                     <Icon type="plus-square" style={{ marginRight: "3px" }}
                           onClick={() => props.addSameElement(shape)}/>
@@ -22,9 +26,9 @@ function Selector(props) {
         return (
             <div className="selector">
                 <div className="selector_title">
-                    {props.title}
+                    { props.title }
                     <Icon type="plus"
-                          style={{ color: "#E7EAED", float: "right", marginRight: "10px" }}
+                          style={{ color: "#E7EAED", float: "right", marginRight: "10px", marginTop: "3px" }}
                           onClick={() => props.addNewElement(props.title)}/>
                 </div>
                 <div className="selector_items">
@@ -58,7 +62,7 @@ function GroupSelector(props) {
     ));
     const selectorItem = props.child.map((shape) => (
         <div className="selector_item">
-            <div className="item_id" onClick={() => props.select(shape)}>{shape.shape}</div>
+            <div className="item_id" onClick={() => props.select(shape)}>{ shape.shape }</div>
             <div className="item_button">
                 <Icon type="plus-square" style={{ marginRight: "3px" }}
                       onClick={() => props.addSameElement(shape)}/>
@@ -74,18 +78,19 @@ function GroupSelector(props) {
                 <Icon type="plus"
                       style={{ color: "#E7EAED", float: "right", marginRight: "10px" }}
                       onClick={() => props.addGroup()}/>
-                { props.groupState ? (<div className="combiner">
-                    <div className="combiner_title">
-                        Combiner
-                    </div>
-                    <div className="group_items">
-                        { groupItem }
-                    </div>
-                    <div className="group_button">
-                        <button onClick={() => props.group()} id="group_button">组合</button>
-                        <button onClick={() => props.cancelGroup()} id="cancel_button">取消</button>
-                    </div>
-                </div>) : null }
+                { props.groupState ? (
+                    <div className="combiner">
+                        <div className="combiner_title">
+                            Combiner
+                        </div>
+                        <div className="group_items">
+                            { groupItem }
+                        </div>
+                        <div className="group_button">
+                            <button onClick={() => props.group()} id="group_button">组合</button>
+                            <button onClick={() => props.cancelGroup()} id="cancel_button">取消</button>
+                        </div>
+                    </div>) : null }
             </div>
             <div className="selector_items">
                 { selectorItem }
@@ -96,13 +101,13 @@ function GroupSelector(props) {
 
 function Regulator(props) {
     const { Selected } = props;
-    let result = [];
-    let j = 0;
+    let [result, j] = [[], 0];
+    const undisplayed = ["shape", "elements", "allAnimate", "previewAnimate"];
     for (let i in Selected) {
-        if (i !== "shape" && i !== "elements") {
+        if (undisplayed.indexOf(i) < 0) {
             result[j++] = (
                 <div className="regulator">
-                    <div className="regulator_title">{i}</div>
+                    <div className="regulator_title">{ i }</div>
                     <div className="regulator_window">
                         <input className="regulator_input" value={Selected[i]}
                                onChange={(event) => props.readjust(event, i)}/>
@@ -114,11 +119,76 @@ function Regulator(props) {
     return (result)
 }
 
+class Animator extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedAnimation: []
+        }
+    }
+
+    handleChange = (checked, tag) => {
+        const { selectedAnimation } = this.state;
+        const nextSelectedAnimation = checked ? [...selectedAnimation, tag] : selectedAnimation.filter(t => t !== tag);
+        this.setState({
+            selectedAnimation: nextSelectedAnimation
+        })
+    };
+
+    delete = () => {
+        const { selectedAnimation } = this.state;
+        let { Selected } = this.props;
+        Selected.allAnimate = Selected.allAnimate.filter(t => selectedAnimation.indexOf(t) < 0);
+        this.props.changeElement(Selected);
+        this.setState({
+            selectedAnimation: []
+        })
+    };
+
+    preview = () => {
+        const { selectedAnimation } = this.state;
+        let { Selected } = this.props;
+        Selected.previewAnimate = [...Selected.previewAnimate, selectedAnimation];
+        this.props.changeElement(Selected);
+    };
+
+    render() {
+        const { Selected } = this.props;
+        const { selectedAnimation } = this.state;
+        const allAnimationTag = Selected ? Selected.allAnimate.map(animation => (
+            <CheckableTag
+                checked={selectedAnimation.indexOf(animation) > -1}
+                onChange={checked => this.handleChange(checked, animation)}>
+                { animation.name }
+            </CheckableTag>
+        )) : null;
+        return (
+            <div id="animation">
+                <Tabs defaultActiveKey="1" size="small">
+                    <TabPane tab="Preview" key="1">
+                        <div id="tags">
+                            { allAnimationTag }
+                        </div>
+                        <div id="tags_operation">
+                            <Button type="primary" onClick={() => this.preview()}>预览</Button>
+                            <Button type="primary" style={{ marginLeft: "50px" }}
+                            onClick={() => this.delete()}>删除</Button>
+                        </div>
+                    </TabPane>
+                    <TabPane tab="Add" key="2">
+
+                    </TabPane>
+                </Tabs>
+            </div>
+        )
+    }
+}
+
 class Operationbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            openKey: "Regulator"
+            openKey: "Selector"
         }
     }
 
@@ -133,15 +203,15 @@ class Operationbar extends React.Component {
         return result
     };
 
-    onOpenChange = () => {
-        if (this.state.openKey === "Regulator") {
+    onOpenChange = key => {
+        if (this.state.openKey === key) {
             this.setState({
-                openKey: "Selector"
+                openKey: undefined
             })
         }
         else {
             this.setState({
-                openKey: "Regulator"
+                openKey: key
             })
         }
     };
@@ -158,30 +228,54 @@ class Operationbar extends React.Component {
         ));
         return (
             <div id="operation">
-                <div style={{ fontSize: "15px", marginLeft: "15px", color: "#E7EAED",
-                    width: "100%", height: "30px", lineHeight: "30px" }}
-                     onClick={this.onOpenChange}>Selector</div>
-                <div id="selectors" style={{ display: this.state.openKey === "Selector" ? null : "none" }}>
-                    { selectors }
-                    <GroupSelector title="Group"
-                                   child={this.choose("Group")}
-                                   select={this.props.select}
-                                   groupElement={this.props.groupElement}
-                                   groupState={this.props.groupState}
-                                   group={this.props.group}
-                                   addGroup={this.props.addGroup}
-                                   ungroup={this.props.ungroup}
-                                   cancelGroup={this.props.cancelGroup}
-                                   removeGroupElement={this.props.removeGroupElement}
-                                   addSameElement={this.props.addSameElement}
-                                   removeElement={this.props.removeElement}/>
+                <div id="selectors">
+                    <div style={{ fontSize: "15px", marginLeft: "15px", color: "#E7EAED",
+                        width: "100%", height: "30px", lineHeight: "30px" }}
+                         onClick={() => this.onOpenChange("Selector")}>
+                        Selector
+                    </div>
+                    { this.state.openKey === "Selector" ? (
+                        <div style={{ width: "100%", marginTop: "5px" }}>
+                        { selectors }
+                        <GroupSelector title="Group"
+                                       child={this.choose("Group")}
+                                       select={this.props.select}
+                                       groupElement={this.props.groupElement}
+                                       groupState={this.props.groupState}
+                                       group={this.props.group}
+                                       addGroup={this.props.addGroup}
+                                       ungroup={this.props.ungroup}
+                                       cancelGroup={this.props.cancelGroup}
+                                       removeGroupElement={this.props.removeGroupElement}
+                                       addSameElement={this.props.addSameElement}
+                                       removeElement={this.props.removeElement}/>
+                    </div>) : null }
                 </div>
                 <Separator/>
                 <div id="regulators">
                     <div style={{ fontSize: "15px", marginLeft: "15px", color: "#E7EAED",
                         width: "100%", height: "30px", lineHeight: "30px" }}
-                         onClick={this.onOpenChange}>Regulator</div>
-                    <Regulator readjust={this.props.readjust} Selected={this.props.Selected}/>
+                         onClick={() => this.onOpenChange("Regulator")}>
+                        Regulator
+                    </div>
+                    { this.state.openKey === "Regulator" ? (
+                        <div
+                        style={{ overflowY: "scroll", overflowX: "hidden", width: "100%", flex: "auto", webkitFlex: "auto" }}>
+                        <Regulator readjust={this.props.readjust} Selected={this.props.Selected}/>
+                    </div>) : null }
+                </div>
+                <Separator/>
+                <div id="animator">
+                    <div style={{ fontSize: "15px", marginLeft: "15px", color: "#E7EAED",
+                        width: "100%", height: "30px", lineHeight: "30px" }}
+                         onClick={() => this.onOpenChange("Animator")}>
+                        Animator
+                    </div>
+                    { this.state.openKey === "Animator" ? (
+                        <div
+                            style={{ width: "100%" }}>
+                            <Animator Selected={this.props.Selected} changeElement={this.props.changeElement}/>
+                        </div>) : null }
                 </div>
             </div>
         )

@@ -18,6 +18,7 @@ class Editor extends React.Component {
             actionList: [[a, c], [b]],
             // finishedActionList已完成的动作，组合后的列表
             finishedActionList: [[c], [a], [b]],
+
             // preview为当前编辑栏中的动作
             preview: undefined,
             // selected编辑栏中动作被选中元素
@@ -304,6 +305,12 @@ class Editor extends React.Component {
         })
     };
 
+    changeElement = element => {
+        const { actionList, preview, selected } = this.state;
+        const [preIndex, selectedIndex] = [actionList.indexOf(preview), preview.indexOf(selected)];
+        actionList[preIndex][selectedIndex] = element;
+    };
+
     render() {
         const { preview, selected } = this.state;
         if (preview !== undefined) {
@@ -337,6 +344,7 @@ class Editor extends React.Component {
                         addNewAction={this.addNewAction}
                         addSameAction={this.addSameAction}
                         removeAction={this.removeAction}
+                        // changeActionList={this.changeActionList}
                         combination={this.combination}
                         ChangeCombination={this.ChangeCombination}
                         addSameCombination={this.addSameCombination}
@@ -356,11 +364,12 @@ class Editor extends React.Component {
                         ungroup={this.ungroup}
                         cancelGroup={this.cancelGroup}
                         removeGroupElement={this.removeGroupElement}
-                        group={this.group}/>
+                        group={this.group}
+                        changeElement={this.changeElement}/>
                 </div>
-                <div id="animation_bar">
-
-                </div>
+                {/*<div id="animation_bar">*/}
+                {/*    <AnimationEditor/>*/}
+                {/*</div>*/}
             </div>
         )
     }

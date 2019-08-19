@@ -3,8 +3,8 @@ import React from 'react';
 class Animate {
     constructor({name, id, attributeName,
         from, to, values, by, 
-        begin, end, dur, 
-        calcMode, keyTimes, keySplines,
+        begin, end, dur,
+        keyTimes, keySplines,
         repeatCount, repeatDur, fill, 
         accumulate, additive, restart}) {
         this.name = name;
@@ -22,7 +22,6 @@ class Animate {
         this.end = end;
         this.dur = dur;
 
-        this.calcMode = calcMode;
         this.keyTimes = keyTimes;
         this.keySplines = keySplines;
 
@@ -39,8 +38,8 @@ class Animate {
         return <animate id={this.id} 
         attributeName={this.attributeName} attributeType={this.attributeType}
         from={this.from} to={this.to} values={this.values} by={this.by}
-        begin={this.begin} end={this.end} dur={this.dur} 
-        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
+        begin={this.begin} end={this.end} dur={this.dur}
+        keyTimes={this.keyTimes} keySplines={this.keySplines}
         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
@@ -48,12 +47,12 @@ class Animate {
     editor() {
         const values = this.values.map((value) => {
             return value * 0.5
-        });
+        }).join("; ");
         return <animate id={this.id} 
         attributeName={this.attributeName} attributeType={this.attributeType}
         from={this.from * 0.5} to={this.to * 0.5} values={values} by={this.by * 0.5}
         begin={this.begin} end={this.end} dur={this.dur} 
-        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
+        keyTimes={this.keyTimes} keySplines={this.keySplines}
         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
@@ -63,7 +62,7 @@ class AnimateTransform {
     constructor({name, id, type,
         from, to, values, by,
         begin, end, dur,
-        calcMode, keyTimes, keySplines,
+        keyTimes, keySplines,
         repeatCount, repeatDur, fill,
         accumulate, additive, restart}) {
         this.name = name;
@@ -82,7 +81,6 @@ class AnimateTransform {
         this.end = end;
         this.dur = dur;
 
-        this.calcMode = calcMode;
         this.keyTimes = keyTimes;
         this.keySplines = keySplines;
 
@@ -100,7 +98,7 @@ class AnimateTransform {
                         attributeName={this.attributeName} attributeType={this.attributeType} type={this.type}
                         from={this.from} to={this.to} values={this.values} by={this.by}
                         begin={this.begin} end={this.end} dur={this.dur}
-                        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
+                        keyTimes={this.keyTimes} keySplines={this.keySplines}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
@@ -108,12 +106,12 @@ class AnimateTransform {
     editor() {
         const values = this.values.map((value) => {
             return value * 0.5
-        });
+        }).join("; ");
         return <animateTransform id={this.id}
                         attributeName={this.attributeName} attributeType={this.attributeType} type={this.type}
                         from={this.from * 0.5} to={this.to * 0.5} values={values} by={this.by * 0.5}
                         begin={this.begin} end={this.end} dur={this.dur}
-                        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
+                        keyTimes={this.keyTimes} keySplines={this.keySplines}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
@@ -122,9 +120,8 @@ class AnimateTransform {
 class AnimateMotion {
     constructor({name, id,
         path, rotate,
-        from, to, values, by,
         begin, end, dur,
-        calcMode, keyTimes, keySplines,
+        calcMode, keyTimes, keyPoints,
         repeatCount, repeatDur, fill,
         accumulate, additive, restart}) {
         this.name = name;
@@ -133,18 +130,13 @@ class AnimateMotion {
         this.path = path;
         this.rotate = rotate;
 
-        this.from = from;
-        this.to = to;
-        this.values = values;
-        this.by = by;
-
         this.begin = begin;
         this.end = end;
         this.dur = dur;
 
         this.calcMode = calcMode;
         this.keyTimes = keyTimes;
-        this.keySplines = keySplines;
+        this.keyPoints = keyPoints;
 
         this.repeatCount = repeatCount;
         this.repeatDur = repeatDur;
@@ -158,25 +150,35 @@ class AnimateMotion {
     result() {
         return <animateMotion id={this.id}
                         path={this.path} rotate={this.rotate}
-                        from={this.from} to={this.to} values={this.values} by={this.by}
                         begin={this.begin} end={this.end} dur={this.dur}
-                        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
+                        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keyPoints}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
 
     editor() {
-        const values = this.values.map((value) => {
-            return value * 0.5
-        });
         return <animateMotion id={this.id}
                         path={this.path} rotate={this.rotate}
-                        from={this.from * 0.5} to={this.to * 0.5} values={values} by={this.by * 0.5}
                         begin={this.begin} end={this.end} dur={this.dur}
-                        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keySplines}
+                        calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keyPoints}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
 }
 
-export { Animate, AnimateMotion, AnimateTransform };
+function getID() {
+    const x = new Date().getTime();
+    let id = String(x).replace(/0/g, "a");
+    id = id.replace(/1/g, "b");
+    id = id.replace(/2/g, "c");
+    id = id.replace(/3/g, "d");
+    id = id.replace(/4/g, "e");
+    id = id.replace(/5/g, "f");
+    id = id.replace(/6/g, "g");
+    id = id.replace(/7/g, "h");
+    id = id.replace(/8/g, "i");
+    id = id.replace(/9/g, "j");
+    return id
+}
+
+export { Animate, AnimateMotion, AnimateTransform, getID };

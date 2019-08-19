@@ -18,14 +18,14 @@ class Circle {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.concat(animate)
+        this.allAnimate = this.allAnimate.push(animate)
     }
 
     result() {
         return <circle cx={this.cx} cy={this.cy} r={this.r}
                        stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}>
-            { this.previewAnimate.map(animate => animate.result()) }
+            { this.allAnimate.map(animate => animate.result()) }
             </circle>
     }
 
@@ -71,14 +71,14 @@ class Rect {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.concat(animate)
+        this.allAnimate = this.allAnimate.push(animate)
     }
 
     result() {
         return <rect x={this.x} y={this.y} width={this.width} height={this.height}
                      stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}>
-            { this.previewAnimate.map(animate => animate.result()) }
+            { this.allAnimate.map(animate => animate.result()) }
             </rect>
     }
     
@@ -124,7 +124,7 @@ class Ellipse {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.concat(animate)
+        this.allAnimate = this.allAnimate.push(animate)
     }
 
     result() {
@@ -175,13 +175,13 @@ class Line {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.concat(animate)
+        this.allAnimate = this.allAnimate.push(animate)
     }
 
     result() {
         return <line x1={this.x1} y1={this.y1} x2={this.x2} y2={this.y2}
                      stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}>
-            { this.previewAnimate.map(animate => animate.result()) }
+            { this.allAnimate.map(animate => animate.result()) }
             </line>
     }
 
@@ -230,7 +230,7 @@ class Text {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.concat(animate)
+        this.allAnimate = this.allAnimate.push(animate)
     }
 
     result() {
@@ -239,7 +239,7 @@ class Text {
                      fill={this.fill} fillOpacity={this.fillOpacity}
                      stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}>
             { this.content }
-            { this.previewAnimate.map(animate => animate.result()) }
+            { this.allAnimate.map(animate => animate.result()) }
             </text>
     }
 

@@ -5,5 +5,20 @@
 
 #animation_operation {
     height: 100%;
-    width: 80%;
+    width: 75%;
+    border-right: 1px solid #E7EAED;
 }
+
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    color: #E7EAED;
+    background: #242424;
+}
+
+ .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+     height: 40px;
+     color: #242424;
+     background: #E7EAED;
+     border-color: #e8e8e8;
+     border-bottom: 1px solid #fff;
+ }
+

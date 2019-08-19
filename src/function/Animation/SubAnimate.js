@@ -1,57 +1,43 @@
 import React from "react";
-import {Animate} from './AnimateTag';
+import {Animate, AnimateMotion, AnimateTransform} from './AnimateTag';
 
-function getID() {
-    const x = new Date().getTime();
-    let id = String(x).replace(/0/g, "a");
-    id = id.replace(/1/g, "b");
-    id = id.replace(/2/g, "c");
-    id = id.replace(/3/g, "d");
-    id = id.replace(/4/g, "e");
-    id = id.replace(/5/g, "f");
-    id = id.replace(/6/g, "g");
-    id = id.replace(/7/g, "h");
-    id = id.replace(/8/g, "i");
-    id = id.replace(/9/g, "j");
-    return id
-}
-
-function ScaleTransform(shape, category,
+function ScaleAnimation(shape, category,
                         {name, attributeName,
                             from, to, values, by,
                             begin, end, dur,
                             calcMode, keyTimes, keySplines,
                             repeatCount, repeatDur, fill,
                             accumulate, additive, restart}) {
+    const id = getID();
     if (shape === "Circle") {
-        return new Animate({
-            name, id: getID(), attributeName: "r",
+        return [new Animate({
+            name, id, attributeName: "r",
             from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
             repeatCount, repeatDur, fill, accumulate, additive, restart
-        })
+        })]
     }
     else if (shape === "Text") {
-        return new Animate({
-            name, id: getID(), attributeName: "font-size",
+        return [new Animate({
+            name, id, attributeName: "font-size",
             from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
             repeatCount, repeatDur, fill, accumulate, additive, restart
-        })
+        })]
     }
     else if (shape === "Rect") {
         if (category === "single") {
-            return new Animate({
-                name, id: getID(), attributeName,
+            return [new Animate({
+                name, id, attributeName,
                 from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
                 repeatCount, repeatDur, fill, accumulate, additive, restart
-            })
+            })]
         }
         else {
             return [new Animate({
-                name, id: getID(), attributeName: "width",
+                name, id, attributeName: "width",
                 from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
                 repeatCount, repeatDur, fill, accumulate, additive, restart
             }), new Animate({
-                    name, id: getID(), attributeName: "height",
+                    name, id, attributeName: "height",
                     from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
                     repeatCount, repeatDur, fill, accumulate, additive, restart
                 })]
@@ -59,42 +45,80 @@ function ScaleTransform(shape, category,
     }
     else if (shape === "Ellipse") {
         if (category === "single") {
-            return new Animate({
-                name, id: getID(), attributeName,
+            return [new Animate({
+                name, id, attributeName,
                 from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
                 repeatCount, repeatDur, fill, accumulate, additive, restart
-            })
+            })]
         }
         else {
             return [new Animate({
-                name, id: getID(), attributeName: "rx",
+                name, id, attributeName: "rx",
                 from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
                 repeatCount, repeatDur, fill, accumulate, additive, restart
             }), new Animate({
-                name, id: getID(), attributeName: "ry",
+                name, id, attributeName: "ry",
                 from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
                 repeatCount, repeatDur, fill, accumulate, additive, restart
             })]
         }
     }
     else if (shape === "Line") {
-        if (category === "single") {
-            return new Animate({
-                name, id: getID(), attributeName,
-                from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
-                repeatCount, repeatDur, fill, accumulate, additive, restart
-            })
-        }
-        else {
-            return [new Animate({
-                name, id: getID(), attributeName: "width",
-                from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
-                repeatCount, repeatDur, fill, accumulate, additive, restart
-            }), new Animate({
-                name, id: getID(), attributeName: "height",
-                from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
-                repeatCount, repeatDur, fill, accumulate, additive, restart
-            })]
-        }
+        return [new Animate({
+            name, id, attributeName,
+            from, to, values, by, begin, end, dur, calcMode, keyTimes, keySplines,
+            repeatCount, repeatDur, fill, accumulate, additive, restart
+        })]
     }
+}
+
+function TranslateAnimation({name,
+                                path, rotate,
+                                begin, end, dur,
+                                calcMode, keyTimes, keyPoints,
+                                repeatCount, repeatDur, fill,
+                                accumulate, additive, restart}) {
+    return [new AnimateMotion({name, id: getID(),
+        path, rotate,
+        begin, end, dur,
+        calcMode, keyTimes, keyPoints,
+        repeatCount, repeatDur, fill,
+        accumulate, additive, restart})]
+}
+
+function RotateAnimation({name,
+                             from, to, values, by,
+                             begin, end, dur,
+                             calcMode, keyTimes, keySplines,
+                             repeatCount, repeatDur, fill,
+                             accumulate, additive, restart}) {
+    return [new AnimateTransform({name, id: getID(), type: "rotate",
+        from, to, values, by,
+        begin, end, dur,
+        calcMode, keyTimes, keySplines,
+        repeatCount, repeatDur, fill,
+        accumulate, additive, restart})]
+}
+
+function SkewAnimation(category, {name,
+                                from, to, values, by,
+                                begin, end, dur,
+                                keyTimes, keySplines,
+                                repeatCount, repeatDur, fill,
+                                accumulate, additive, restart}) {
+    let type;
+    if (category === "X") {
+        type = "skewX";
+    }
+    else {
+        type = "skewY";
+    }
+    return [new AnimateTransform({
+        name, id: getID(), type,
+        from, to, values, by,
+        begin, end, dur,
+        keyTimes, keySplines,
+        repeatCount, repeatDur, fill,
+        accumulate, additive, restart
+    })]
 }

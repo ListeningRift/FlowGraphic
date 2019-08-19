@@ -8,15 +8,14 @@
 }
 
 #selectors {
-    width: 100%;
-    margin-top: 5px;
+    transition: height 0.5s;
 }
 
 .selector {
     width: 140px;
     height: 100px;
     display: inline-block;
-    background-color: #1a1e2b;
+    background-color: #3F3F3F;
     margin-left: 10px;
 }
 
@@ -51,18 +50,16 @@
 
 #regulators {
     width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    flex: auto;
-    -webkit-flex: auto;
-    transition: height 10s;
+    /*flex: auto;*/
+    /*-webkit-flex: auto;*/
+    transition: height 0.5s;
 }
 
 .regulator {
     width: 135px;
     height: 100px;
     display: inline-block;
-    background-color: #1a1e2b;
+    background-color: #3F3F3F;
     margin-left: 8px;
     margin-top: 8px;
 }
@@ -150,4 +147,9 @@
     display: inline-block;
     position: relative;
     bottom: 6px;
+}
+
+#tags_operation {
+    width: 100%;
+    text-align: center;
 }
