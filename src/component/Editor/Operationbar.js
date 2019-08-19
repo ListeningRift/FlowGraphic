@@ -2,6 +2,8 @@ import React from "react";
 import { Icon, Tabs, Tag, Button } from "antd";
 import 'antd/dist/antd.css';
 import '../../css/Operationbar.css';
+import {Circle, Ellipse, Line, Rect, Text} from "../../function/Shape/Shape";
+import {NewAction} from "../../function/PromptAction";
 
 const { TabPane } = Tabs;
 const { CheckableTag } = Tag;
@@ -12,8 +14,8 @@ function Separator() {
 
 function Selector(props) {
     // if (props.child !== undefined) {
-        const selectorItem = props.child.map((shape) => (
-            <div className="selector_item">
+        const selectorItem = props.child.map((shape, index) => (
+            <div className="selector_item" key={index}>
                 <div className="item_id" onClick={() => props.select(shape)}>{ shape.shape }</div>
                 <div className="item_button">
                     <Icon type="plus-square" style={{ marginRight: "3px" }}
@@ -76,7 +78,7 @@ function GroupSelector(props) {
             <div className="selector_title">
                 Group
                 <Icon type="plus"
-                      style={{ color: "#E7EAED", float: "right", marginRight: "10px" }}
+                      style={{ color: "#E7EAED", float: "right", marginRight: "10px", marginTop: "3px" }}
                       onClick={() => props.addGroup()}/>
                 { props.groupState ? (
                     <div className="combiner">
@@ -100,16 +102,16 @@ function GroupSelector(props) {
 }
 
 function Regulator(props) {
-    const { Selected } = props;
+    const { selected } = props;
     let [result, j] = [[], 0];
     const undisplayed = ["shape", "elements", "allAnimate", "previewAnimate"];
-    for (let i in Selected) {
+    for (let i in selected) {
         if (undisplayed.indexOf(i) < 0) {
             result[j++] = (
                 <div className="regulator">
                     <div className="regulator_title">{ i }</div>
                     <div className="regulator_window">
-                        <input className="regulator_input" value={Selected[i]}
+                        <input className="regulator_input" value={selected[i]}
                                onChange={(event) => props.readjust(event, i)}/>
                     </div>
                 </div>
@@ -137,9 +139,9 @@ class Animator extends React.Component {
 
     delete = () => {
         const { selectedAnimation } = this.state;
-        let { Selected } = this.props;
-        Selected.allAnimate = Selected.allAnimate.filter(t => selectedAnimation.indexOf(t) < 0);
-        this.props.changeElement(Selected);
+        let { selected } = this.props;
+        selected.allAnimate = selected.allAnimate.filter(t => selectedAnimation.indexOf(t) < 0);
+        this.props.changeElement(selected);
         this.setState({
             selectedAnimation: []
         })
@@ -147,15 +149,15 @@ class Animator extends React.Component {
 
     preview = () => {
         const { selectedAnimation } = this.state;
-        let { Selected } = this.props;
-        Selected.previewAnimate = [...Selected.previewAnimate, selectedAnimation];
-        this.props.changeElement(Selected);
+        let { selected } = this.props;
+        selected.previewAnimate = [...selected.previewAnimate, selectedAnimation];
+        this.props.changeElement(selected);
     };
 
     render() {
-        const { Selected } = this.props;
+        const { selected } = this.props;
         const { selectedAnimation } = this.state;
-        const allAnimationTag = Selected ? Selected.allAnimate.map(animation => (
+        const allAnimationTag = selected ? selected.allAnimate.map(animation => (
             <CheckableTag
                 checked={selectedAnimation.indexOf(animation) > -1}
                 onChange={checked => this.handleChange(checked, animation)}>
@@ -195,9 +197,9 @@ class Operationbar extends React.Component {
     choose = (condition) => {
         let result = [];
         let j = 0;
-        for (let i in this.props.element) {
-            if (this.props.element[i].shape === condition) {
-                result[j++] = this.props.element[i]
+        for (let i in this.props.preview) {
+            if (this.props.preview[i].shape === condition) {
+                result[j++] = this.props.preview[i]
             }
         }
         return result
@@ -216,15 +218,74 @@ class Operationbar extends React.Component {
         }
     };
 
+    // 选中编辑栏内某元素
+    select = element => {
+        if (!this.props.groupState) {
+            this.props.changeSelected(element)
+        } else {
+            let { groupElement } = this.props;
+            groupElement.push(element);
+            this.props.changeGroupElement(groupElement)
+        }
+    };
+
+    // 调整元素属性
+    readjust = (e, i) => {
+        let { actionList, preview, selected } = this.props;
+        const preIndex = actionList.indexOf(preview);
+        const selIndex = preview.indexOf(selected);
+        console.log(actionList);
+        console.log(preIndex);
+        console.log(selIndex);
+        actionList[preIndex][selIndex][i] = e.target.value;
+        this.props.changeActionList(actionList)
+    };
+
+    // 添加新元素
+    addNewElement = (shape) => {
+        let { actionList, preview } = this.props;
+        const preIndex = actionList.indexOf(preview);
+        let newElement;
+        switch (shape) {
+            case "Circle":newElement = new Circle({cx:0, cy:0, r:0});
+                break;
+            case "Rect":newElement = new Rect({x:0, y:0, width:0, height:0});
+                break;
+            case "Ellipse":newElement = new Ellipse({cx:0, cy:0, rx:0, ry:0});
+                break;
+            case "Line":newElement = new Line({x1:0, y1:0, x2:0, y2:0, stroke:"black"});
+                break;
+            case "Text":newElement = new Text({x:0, y:0, content: "New"});
+                break;
+        }
+        if (preview[0] !== NewAction) {
+            preview.push(newElement);
+        } else {
+            preview[0] = newElement
+        }
+        actionList[preIndex] = preview;
+        this.props.changeActionList(actionList)
+    };
+
+    // 添加与某元素相同的元素
+    addSameElement = (element) => {
+        let { actionList, preview } = this.props;
+        const preIndex = actionList.indexOf(preview);
+        preview.push({...element});
+        actionList[preIndex] = preview;
+        this.props.changeActionList(actionList)
+    };
+
     render() {
         const shapes = ["Circle", "Rect", "Ellipse", "Line", "Text"];
-        const selectors = shapes.map((shape) => (
+        const selectors = shapes.map((shape, index) => (
             <Selector title={shape}
                       child={this.choose(shape)}
-                      select={this.props.select}
-                      addNewElement={this.props.addNewElement}
-                      addSameElement={this.props.addSameElement}
-                      removeElement={this.props.removeElement}/>
+                      select={this.select}
+                      addNewElement={this.addNewElement}
+                      addSameElement={this.addSameElement}
+                      removeElement={this.props.removeElement}
+                      key={index}/>
         ));
         return (
             <div id="operation">
@@ -239,7 +300,7 @@ class Operationbar extends React.Component {
                         { selectors }
                         <GroupSelector title="Group"
                                        child={this.choose("Group")}
-                                       select={this.props.select}
+                                       select={this.select}
                                        groupElement={this.props.groupElement}
                                        groupState={this.props.groupState}
                                        group={this.props.group}
@@ -247,7 +308,7 @@ class Operationbar extends React.Component {
                                        ungroup={this.props.ungroup}
                                        cancelGroup={this.props.cancelGroup}
                                        removeGroupElement={this.props.removeGroupElement}
-                                       addSameElement={this.props.addSameElement}
+                                       addSameElement={this.addSameElement}
                                        removeElement={this.props.removeElement}/>
                     </div>) : null }
                 </div>
@@ -261,7 +322,7 @@ class Operationbar extends React.Component {
                     { this.state.openKey === "Regulator" ? (
                         <div
                         style={{ overflowY: "scroll", overflowX: "hidden", width: "100%", flex: "auto", webkitFlex: "auto" }}>
-                        <Regulator readjust={this.props.readjust} Selected={this.props.Selected}/>
+                        <Regulator readjust={this.readjust} selected={this.props.selected}/>
                     </div>) : null }
                 </div>
                 <Separator/>
@@ -274,7 +335,7 @@ class Operationbar extends React.Component {
                     { this.state.openKey === "Animator" ? (
                         <div
                             style={{ width: "100%" }}>
-                            <Animator Selected={this.props.Selected} changeElement={this.props.changeElement}/>
+                            <Animator selected={this.props.selected} changeElement={this.props.changeElement}/>
                         </div>) : null }
                 </div>
             </div>

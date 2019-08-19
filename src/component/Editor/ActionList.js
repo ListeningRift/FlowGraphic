@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'antd';
 import '../../css/ActionList.css';
+import { NewAction } from "../../function/PromptAction";
 
 function Combinator(props) {
     const { combinationList } = props;
@@ -32,7 +33,6 @@ function Combinator(props) {
 }
 
 class ActionList extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -53,26 +53,110 @@ class ActionList extends React.Component {
         }
     };
 
-    combination = () => {
-        this.props.ChangeCombination();
+    startCombination = () => {
+        this.props.changeCombinationState(!this.props.combinationState)
         this.onOpenChange()
+    };
+
+    // 添加新空动作
+    addNewAction = () => {
+        const { actionList } = this.props;
+        const newActionList = actionList.concat([[NewAction]]);
+        this.props.changeActionList(newActionList)
+    };
+
+    // 添加与某动作相同的动作
+    addSameAction = k => {
+        let { actionList } = this.props;
+        actionList.splice(k+1, 0, actionList[k]);
+        this.props.changeActionList(actionList)
+    };
+
+    // 删除某动作
+    removeAction = k => {
+        let { actionList } = this.props;
+        actionList.splice(k, 1);
+        this.props.changeActionList(actionList)
+    };
+
+    // 处理点击动作事件
+    handleActionClick = (k, from) => {
+        if (this.props.combinationState) {
+            if (from === "actionList") {
+                const { actionList, combinationAction } = this.props;
+                combinationAction.push(actionList[k]);
+                this.props.changeCombinationAction(combinationAction)
+            }
+            else {
+                const { finishedActionList, combinationAction } = this.props;
+                combinationAction.push(finishedActionList[k]);
+                this.props.changeCombinationAction(combinationAction)
+            }
+        }
+        else {
+            if (from === "actionList") {
+                const { actionList } = this.props;
+                this.props.changePreview(actionList[k])
+            }
+            else {
+                const { finishedActionList } = this.props;
+                this.props.changePreview(finishedActionList[k])
+            }
+        }
+    };
+
+    // 将数组内动作组合起来
+    combination = () => {
+        let { actionList, finishedActionList, combinationAction } = this.props;
+        let actions = [];
+        combinationAction.forEach((action) => {
+            actions = actions.concat(action);
+            const i = actionList.indexOf(action);
+            actionList.splice(i, 1);
+        });
+        finishedActionList.push(actions);
+        this.props.changeActionList(actionList);
+        this.props.changeFinishedActionList(finishedActionList);
+        this.props.changeCombinationAction([]);
+        this.props.changeCombinationState(false);
+        this.onOpenChange()
+    };
+
+    addSameCombination = k => {
+        const { finishedActionList } = this.props;
+        finishedActionList.splice(k+1, 0, finishedActionList[k]);
+        this.props.changeFinishedActionList(finishedActionList)
+    };
+
+    // 删除组合动作
+    removeCombination = k => {
+        let { finishedActionList } = this.props;
+        finishedActionList.splice(k, 1);
+        this.props.changeFinishedActionList(finishedActionList)
+    };
+
+    // 删除动作组合器中的动作
+    removeCombinationAction = k => {
+        let { combinationAction } = this.props;
+        combinationAction.splice(k, 1);
+        this.props.changeCombinationAction(combinationAction)
     };
 
     render() {
         const { actionList, finishedActionList } = this.props;
         const actionItems = actionList.map((actions, index) => (
-            <div className="action_item">
+            <div className="action_item" key={index}>
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                     onClick={() => this.props.handleActionClick(index, "actionList")}>
+                     onClick={() => this.handleActionClick(index, "actionList")}>
                     { actions.map((action) => (action.list())) }
                 </svg>
                 <div style={{ width: "13%", height: "100%", display: "inline-block",
                     textAlign: "center" }}>
                     <Icon type="plus-circle" style={{ fontSize: "120%", color: "#E7EAED" }}
-                          onClick={() => this.props.addSameAction(index)}/>
+                          onClick={() => this.addSameAction(index)}/>
                     <br/>
                     <Icon type="minus-circle" style={{ fontSize: "120%", color: "#E7EAED" }}
-                          onClick={() => this.props.removeAction(index)}/>
+                          onClick={() => this.removeAction(index)}/>
                 </div>
             </div>
             )
@@ -80,16 +164,16 @@ class ActionList extends React.Component {
         const finishedItems = finishedActionList.map((actions, index) => (
             <div className="action_item">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                     onClick={() => this.props.handleActionClick(index, "finishedActionList")}>
+                     onClick={() => this.handleActionClick(index, "finishedActionList")}>
                     { actions.map((action) => (action.list())) }
                 </svg>
                 <div style={{ width: "13%", height: "100%", display: "inline-block",
                     textAlign: "center" }}>
                     <Icon type="plus-circle" style={{ fontSize: "120%", color: "#E7EAED" }}
-                          onClick={() => this.props.addSameCombination(index)}/>
+                          onClick={() => this.addSameCombination(index)}/>
                     <br/>
                     <Icon type="minus-circle" style={{ fontSize: "120%", color: "#E7EAED" }}
-                          onClick={() => this.props.removeCombination(index)}/>
+                          onClick={() => this.removeCombination(index)}/>
                 </div>
             </div>
             )
@@ -109,7 +193,7 @@ class ActionList extends React.Component {
                         <div id="new_plus">
                             <svg t="1563954469672" className="icon" viewBox="0 0 1024 1024" version="1.1"
                                  xmlns="http://www.w3.org/2000/svg" p-id="9208" width="100%" height="100%"
-                                 onClick={this.props.addNewAction}>
+                                 onClick={this.addNewAction}>
                                 <path d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"
                                       p-id="9209"/>
                                 <path d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"
@@ -130,7 +214,7 @@ class ActionList extends React.Component {
                         <div id="new_plus">
                             <svg t="1563954469672" className="icon" viewBox="0 0 1024 1024" version="1.1"
                                  xmlns="http://www.w3.org/2000/svg" p-id="9208" width="100%" height="100%"
-                                 onClick={() => this.combination()}>
+                                 onClick={() => this.startCombination()}>
                                 <path d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"
                                       p-id="9209"/>
                                 <path d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"
@@ -140,11 +224,11 @@ class ActionList extends React.Component {
 
                     </div>
                 </div>
-                <Combinator combination={this.props.combination}
+                <Combinator combination={this.combination}
                             combinationState={this.props.combinationState}
                             combinationList={this.props.combinationAction}
                             ChangeCombination={this.props.ChangeCombination}
-                            removeCombinationAction={this.props.removeCombinationAction}/>
+                            removeCombinationAction={this.removeCombinationAction}/>
             </div>
         )
     }

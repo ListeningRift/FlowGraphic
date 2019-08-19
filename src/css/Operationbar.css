@@ -107,6 +107,7 @@
 .combiner {
     width: 150px;
     position: absolute;
+    right: 10px;
     background-color: #1f222f;
 }
 
@@ -128,11 +129,13 @@
 
 #group_button {
     margin-left: 6px;
+    color: #242424;
 }
 
 #cancel_button {
     float: right;
     margin-right: 6px;
+    color: #242424;
 }
 
 .group_item_id {
