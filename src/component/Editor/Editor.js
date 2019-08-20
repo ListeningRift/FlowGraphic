@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/Editor.css';
+import '../../css/Editor/Editor.css';
 import Menubar from './Menubar';
 import ActionList from './ActionList';
 import Operationbar from "./Operationbar";
@@ -43,55 +43,63 @@ class Editor extends React.Component {
         })
     };
 
+    // finishedActionList更改
     changeFinishedActionList = newFinishedActionList => {
         this.setState({
             finishedActionList: newFinishedActionList
         })
     };
 
+    // preview更改
     changePreview = newPreview => {
         this.setState({
             preview: newPreview
         })
     };
 
+    // selected更改
     changeSelected = newSelected => {
         this.setState({
             selected: newSelected
         })
     };
 
+    // groupState更改
     changeGroupState = newGroupState => {
         this.setState({
             groupState: newGroupState
         })
     };
 
+    // groupElement更改
     changeGroupElement = newGroupElement => {
         this.setState({
             groupElement: newGroupElement
         })
     };
 
+    // combinationState更改
     changeCombinationState = newCombinationState => {
         this.setState({
             combinationState: newCombinationState
         })
     };
 
+    // combinationAction更改
     changeCombinationAction = newCombinationAction => {
         this.setState({
             combinationAction: newCombinationAction
         })
     };
 
-    // 取消选中
+    // 取消元素选中
     unselect = () => {
         this.setState({
             selected: undefined
         })
     };
 
+    //对元素进行更改
     changeElement = element => {
         const { actionList, preview, selected } = this.state;
         const [preIndex, selectedIndex] = [actionList.indexOf(preview), preview.indexOf(selected)];
@@ -144,8 +152,8 @@ class Editor extends React.Component {
                         selected={this.state.selected}
                         groupState={this.state.groupState}
                         groupElement={this.state.groupElement}
-                        changeElement={this.changeElement}
 
+                        changeElement={this.changeElement}
                         changeActionList={this.changeActionList}
                         changeSelected={this.changeSelected}
                         changeGroupState={this.changeGroupState}

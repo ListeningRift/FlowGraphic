@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from 'antd';
-import '../../css/ActionList.css';
+import '../../css/Editor/ActionList.css';
 import { NewAction } from "../../function/PromptAction";
 
 function Combinator(props) {

@@ -156,3 +156,16 @@
     width: 100%;
     text-align: center;
 }
+
+.ant-tabs-nav {
+    color: #E7EAED;
+}
+
+.ant-tabs-tab:hover {
+    color: #E7EAED !important;
+}
+
+.ant-tabs-tab-active {
+    color: #E7EAED !important;
+    font-weight: 500;
+}

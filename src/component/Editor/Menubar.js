@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from './Logo.png';
-import '../../css/Menubar.css';
+import '../../css/Editor/Menubar.css';
 
 function Separator() {
     return <div style={{ borderTop: "solid #C0C0C0 1px", margin: "3px 2px" }}></div>

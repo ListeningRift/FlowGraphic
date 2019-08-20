@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon, Tabs, Tag, Button } from "antd";
 import 'antd/dist/antd.css';
-import '../../css/Operationbar.css';
+import '../../css/Editor/Operationbar.css';
 import {Circle, Ellipse, Line, Rect, Text} from "../../function/Shape/Shape";
 import {NewAction} from "../../function/PromptAction";
 import Group from "../../function/Shape/Group";
