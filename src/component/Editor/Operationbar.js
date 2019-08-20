@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import '../../css/Operationbar.css';
 import {Circle, Ellipse, Line, Rect, Text} from "../../function/Shape/Shape";
 import {NewAction} from "../../function/PromptAction";
+import Group from "../../function/Shape/Group";
 
 const { TabPane } = Tabs;
 const { CheckableTag } = Tag;
@@ -234,9 +235,6 @@ class Operationbar extends React.Component {
         let { actionList, preview, selected } = this.props;
         const preIndex = actionList.indexOf(preview);
         const selIndex = preview.indexOf(selected);
-        console.log(actionList);
-        console.log(preIndex);
-        console.log(selIndex);
         actionList[preIndex][selIndex][i] = e.target.value;
         this.props.changeActionList(actionList)
     };
@@ -268,12 +266,82 @@ class Operationbar extends React.Component {
     };
 
     // 添加与某元素相同的元素
-    addSameElement = (element) => {
+    addSameElement = element => {
         let { actionList, preview } = this.props;
         const preIndex = actionList.indexOf(preview);
-        preview.push({...element});
+        let newElement;
+        switch (element.shape) {
+            case "Circle":newElement = new Circle({...element});
+                break;
+            case "Rect":newElement = new Rect({...element});
+                break;
+            case "Ellipse":newElement = new Ellipse({...element});
+                break;
+            case "Line":newElement = new Line({...element});
+                break;
+            case "Text":newElement = new Text({...element});
+                break;
+        }
+        preview.push(newElement);
         actionList[preIndex] = preview;
         this.props.changeActionList(actionList)
+    };
+
+    // 删除某元素
+    removeElement = element => {
+        let { actionList, preview } = this.props;
+        const preIndex = actionList.indexOf(preview);
+        const eleIndex = preview.indexOf(element);
+        preview.splice(eleIndex, 1);
+        actionList[preIndex] = preview;
+        this.props.changeActionList(actionList)
+    };
+
+    // 更改组合状态，开始组合
+    addGroup = () => {
+        this.props.changeGroupState(true)
+    };
+
+    // 更改组合状态，取消组合
+    cancelGroup = () => {
+        this.props.changeGroupState(false);
+        this.props.changeGroupElement([])
+    };
+
+    // 拆开组合元素
+    ungroup = (group) => {
+        let { actionList, preview } = this.props;
+        const groupIndex = preview.indexOf(group);
+        const preIndex = actionList.indexOf(preview);
+        preview.splice(groupIndex, 1);
+        group.elements.forEach((element) => {
+            preview.push(element)
+        });
+        actionList[preIndex] = preview;
+        this.props.changeActionList(actionList)
+    };
+
+    // 删除组合元素
+    removeGroupElement = k => {
+        let { groupElement } = this.props;
+        groupElement.splice(k, 1);
+        this.props.changeGroupElement(groupElement)
+    };
+
+    // 将列表中准备组合的元素组合起来
+    group = () => {
+        let { actionList, preview, groupElement } = this.props;
+        groupElement.forEach((element) => {
+            const index = preview.indexOf(element);
+            preview.splice(index, 1);
+        });
+        const group = new Group(groupElement);
+        const preIndex = actionList.indexOf(preview);
+        preview.push(group);
+        actionList[preIndex] = preview;
+        this.props.changeActionList(actionList);
+        this.props.changeGroupElement([]);
+        this.props.changeGroupState(false);
     };
 
     render() {
@@ -284,7 +352,7 @@ class Operationbar extends React.Component {
                       select={this.select}
                       addNewElement={this.addNewElement}
                       addSameElement={this.addSameElement}
-                      removeElement={this.props.removeElement}
+                      removeElement={this.removeElement}
                       key={index}/>
         ));
         return (
@@ -299,17 +367,17 @@ class Operationbar extends React.Component {
                         <div style={{ width: "100%", marginTop: "5px" }}>
                         { selectors }
                         <GroupSelector title="Group"
-                                       child={this.choose("Group")}
-                                       select={this.select}
                                        groupElement={this.props.groupElement}
                                        groupState={this.props.groupState}
-                                       group={this.props.group}
-                                       addGroup={this.props.addGroup}
-                                       ungroup={this.props.ungroup}
-                                       cancelGroup={this.props.cancelGroup}
-                                       removeGroupElement={this.props.removeGroupElement}
+                                       child={this.choose("Group")}
+                                       select={this.select}
+                                       group={this.group}
+                                       addGroup={this.addGroup}
+                                       ungroup={this.ungroup}
+                                       cancelGroup={this.cancelGroup}
+                                       removeGroupElement={this.removeGroupElement}
                                        addSameElement={this.addSameElement}
-                                       removeElement={this.props.removeElement}/>
+                                       removeElement={this.removeElement}/>
                     </div>) : null }
                 </div>
                 <Separator/>
