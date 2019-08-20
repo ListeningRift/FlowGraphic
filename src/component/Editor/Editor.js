@@ -1,18 +1,21 @@
 import React from 'react';
 import '../../css/Editor/Editor.css';
-import Menubar from './Menubar';
-import ActionList from './ActionList';
-import Operationbar from "./Operationbar";
+import MenuBar from './MenuBar/MenuBar';
+import ActionList from './ActionList/ActionList';
+import OperationBar from "./OperationBar/OperationBar";
 import { Circle, Rect, Line, Ellipse, Text } from "../../function/Shape/Shape";
-import { NewAction } from "../../function/PromptAction";
-import Group from '../../function/Shape/Group';
+import { AnimateTransform } from "../../function/Animation/AnimateTag";
+
 
 class Editor extends React.Component {
     constructor(props) {
         super(props);
-        const a = new Circle({cx: 500, cy: 500, r: 300});
+        let a = new Circle({cx: 500, cy: 500, r: 300});
         const b = new Rect({x: 300, y: 300, width: 100, height: 100});
         const c = new Line({x1: 50, y1: 30,x2: 500, y2: 300, stroke: "black"});
+        const animation = new AnimateTransform({name:"放大", begin:"0s", dur:"3s", type:"scale", from:"1", to:"1.5", repeatCount:"indefinite"});
+        a.addAnimate(animation);
+        console.log(a);
         this.state = {
             // actionList为所有动作的列表
             actionList: [[a, c], [b]],
@@ -123,7 +126,7 @@ class Editor extends React.Component {
                  style={{ background: "#3F3F3F",
                      width: "100%", height: "100%" }}>
                 <div id="menubar">
-                    <Menubar/>
+                    <MenuBar/>
                 </div>
                 <div id="editor" onClick={this.unselect}>
                     <svg width="100%" height="100%">
@@ -146,7 +149,7 @@ class Editor extends React.Component {
                     />
                 </div>
                 <div id="operation_bar">
-                    <Operationbar
+                    <OperationBar
                         actionList={this.state.actionList}
                         preview={this.state.preview}
                         selected={this.state.selected}

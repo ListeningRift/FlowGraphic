@@ -18,7 +18,7 @@ class Circle {
     }
 
     addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
+        this.allAnimate = this.allAnimate.concat(animate)
     }
 
     result() {

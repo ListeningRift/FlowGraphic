@@ -58,7 +58,7 @@
 
 #combination_items {
     width: 100%;
-    height: 90%;
+    height: 87%;
     margin-top: 10px;
     margin-bottom: 7px;
     overflow-y: scroll;
@@ -80,8 +80,30 @@
     box-sizing: border-box;
 }
 
-.combination_button {
+#combination_button {
     width: 100%;
-    height: 3%;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.ant-btn-primary {
+    color: #E7EAED;
+    background-color: #242424;
+    border: 1px solid #E7EAED;
+    border-radius: 0;
+}
+
+.ant-btn-primary:active, .ant-btn-primary.active {
+    color: #fff;
+    background-color: #3F3F3F;
+    border-width: 1.5px;
+    border-color: #E7EAED;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+    color: #fff;
+    background-color: #3F3F3F;
+    border-width: 1.5px;
+    border-color: #E7EAED;
 }
 

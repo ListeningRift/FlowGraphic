@@ -1,6 +1,6 @@
 import React from 'react';
-import Logo from './Logo.png';
-import '../../css/Editor/Menubar.css';
+import Logo from '../Logo.png';
+import '../../../css/Editor/Menubar.css';
 
 function Separator() {
     return <div style={{ borderTop: "solid #C0C0C0 1px", margin: "3px 2px" }}></div>
@@ -18,7 +18,7 @@ class Menus extends React.Component {
         document.addEventListener("click", this.onHide)
     }
 
-    onShow = (promot) => {
+    onShow = promot => {
         this.setState({
             show: promot
         })
@@ -93,7 +93,7 @@ class Menus extends React.Component {
     )}
 }
 
-function Menubar() {
+function MenuBar() {
     return (
         <div style={{ width: "100%", height: "100%" }}>
             <div id="logo"
@@ -105,4 +105,4 @@ function Menubar() {
     )
 }
 
-export default Menubar;
+export default MenuBar;

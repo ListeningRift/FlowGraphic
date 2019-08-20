@@ -1,36 +1,9 @@
 import React from 'react';
 import { Icon } from 'antd';
-import '../../css/Editor/ActionList.css';
-import { NewAction } from "../../function/PromptAction";
+import Combinator from './Combinator';
+import '../../../css/Editor/ActionList.css';
+import { NewAction } from "../../../function/PromptAction";
 
-function Combinator(props) {
-    const { combinationList } = props;
-    const combinationItems = combinationList.map((actions, index) => (
-        <div className="combination_item">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                 key={index}>
-                { actions.map((action) => (action.list())) }
-            </svg>
-            <div style={{ width: "13%", height: "100%", display: "inline-block",
-                textAlign: "center" }}>
-                <Icon type="minus-circle" style={{ fontSize: "120%", color: "#E7EAED" }}
-                      onClick={() => props.removeCombinationAction(index)}/>
-            </div>
-        </div>
-    ));
-    return (
-        <div id="action_combination" style={{ display: props.combinationState ? null : "none" }}>
-            <div id="combination_title">Action Combinator</div>
-            <div id="combination_items">
-                { combinationItems }
-            </div>
-            <div id="combination_button">
-                <button onClick={props.combination}>组合</button>
-                <button onClick={props.ChangeCombination}>取消</button>
-            </div>
-        </div>
-    )
-}
 
 class ActionList extends React.Component {
     constructor(props) {
@@ -40,6 +13,7 @@ class ActionList extends React.Component {
         }
     }
 
+    // 更改打开栏
     onOpenChange = () => {
         if (this.state.openKey === "actionList") {
             this.setState({
@@ -51,11 +25,6 @@ class ActionList extends React.Component {
                 openKey: "actionList"
             })
         }
-    };
-
-    startCombination = () => {
-        this.props.changeCombinationState(!this.props.combinationState)
-        this.onOpenChange()
     };
 
     // 添加新空动作
@@ -105,27 +74,18 @@ class ActionList extends React.Component {
         }
     };
 
-    // 将数组内动作组合起来
-    combination = () => {
-        let { actionList, finishedActionList, combinationAction } = this.props;
-        let actions = [];
-        combinationAction.forEach((action) => {
-            actions = actions.concat(action);
-            const i = actionList.indexOf(action);
-            actionList.splice(i, 1);
-        });
-        finishedActionList.push(actions);
-        this.props.changeActionList(actionList);
-        this.props.changeFinishedActionList(finishedActionList);
-        this.props.changeCombinationAction([]);
-        this.props.changeCombinationState(false);
-        this.onOpenChange()
-    };
-
+    // 添加相同组合
     addSameCombination = k => {
         const { finishedActionList } = this.props;
         finishedActionList.splice(k+1, 0, finishedActionList[k]);
         this.props.changeFinishedActionList(finishedActionList)
+    };
+
+
+    // 开启组合器
+    startCombination = () => {
+        this.props.changeCombinationState(!this.props.combinationState);
+        this.onOpenChange()
     };
 
     // 删除组合动作
@@ -133,13 +93,6 @@ class ActionList extends React.Component {
         let { finishedActionList } = this.props;
         finishedActionList.splice(k, 1);
         this.props.changeFinishedActionList(finishedActionList)
-    };
-
-    // 删除动作组合器中的动作
-    removeCombinationAction = k => {
-        let { combinationAction } = this.props;
-        combinationAction.splice(k, 1);
-        this.props.changeCombinationAction(combinationAction)
     };
 
     render() {
@@ -224,11 +177,19 @@ class ActionList extends React.Component {
 
                     </div>
                 </div>
-                <Combinator combination={this.combination}
+                <Combinator actionList={this.props.actionList}
+                            finishedActionList={this.props.finishedActionList}
                             combinationState={this.props.combinationState}
-                            combinationList={this.props.combinationAction}
-                            ChangeCombination={this.props.ChangeCombination}
-                            removeCombinationAction={this.removeCombinationAction}/>
+                            combinationAction={this.props.combinationAction}
+                            // combination={this.combination}
+                            // cancelCombination={this.cancelCombination}
+                            // removeCombinationAction={this.removeCombinationAction}
+                            onOpenChange={this.onOpenChange}
+
+                            changeActionList={this.props.changeActionList}
+                            changeFinishedActionList={this.props.changeFinishedActionList}
+                            changeCombinationAction={this.props.changeCombinationAction}
+                            changeCombinationState={this.props.changeCombinationState}/>
             </div>
         )
     }

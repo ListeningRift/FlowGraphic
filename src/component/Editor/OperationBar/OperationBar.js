@@ -1,193 +1,19 @@
 import React from "react";
-import { Icon, Tabs, Tag, Button } from "antd";
 import 'antd/dist/antd.css';
-import '../../css/Editor/Operationbar.css';
-import {Circle, Ellipse, Line, Rect, Text} from "../../function/Shape/Shape";
-import {NewAction} from "../../function/PromptAction";
-import Group from "../../function/Shape/Group";
-
-const { TabPane } = Tabs;
-const { CheckableTag } = Tag;
+import '../../../css/Editor/Operationbar.css';
+import { Circle, Ellipse, Line, Rect, Text } from "../../../function/Shape/Shape";
+import { NewAction } from "../../../function/PromptAction";
+import Group from "../../../function/Shape/Group";
+import { Selector, GroupSelector } from "./Selector";
+import Regulator from "./Regulator";
+import Animator from "./Animator";
 
 function Separator() {
     return <div style={{ borderTop: "solid #C0C0C0 1px", margin: "10px 2px" }}> </div>
 }
 
-function Selector(props) {
-    // if (props.child !== undefined) {
-        const selectorItem = props.child.map((shape, index) => (
-            <div className="selector_item" key={index}>
-                <div className="item_id" onClick={() => props.select(shape)}>{ shape.shape }</div>
-                <div className="item_button">
-                    <Icon type="plus-square" style={{ marginRight: "3px" }}
-                          onClick={() => props.addSameElement(shape)}/>
-                    <Icon type="minus-square"
-                          onClick={() => props.removeElement(shape)}/>
-                </div>
-            </div>
-        ));
-        return (
-            <div className="selector">
-                <div className="selector_title">
-                    { props.title }
-                    <Icon type="plus"
-                          style={{ color: "#E7EAED", float: "right", marginRight: "10px", marginTop: "3px" }}
-                          onClick={() => props.addNewElement(props.title)}/>
-                </div>
-                <div className="selector_items">
-                    { selectorItem }
-                </div>
-            </div>
-        )
-    // }
-    // else {
-    //     return (
-    //         <div className="selector">
-    //             <div className="selector_title">{props.title}</div>
-    //             <div className="selector_items">
-    //             </div>
-    //         </div>
-    //     )
-    // }
-}
 
-function GroupSelector(props) {
-    const groupItem = props.groupElement.map((element, index) => (
-        <div className="group_item">
-            <div className="group_item_id">
-                { element.shape }
-            </div>
-            <div className="group_item_button">
-                <Icon type="minus-square"
-                      onClick={() => props.removeGroupElement(index)}/>
-            </div>
-        </div>
-    ));
-    const selectorItem = props.child.map((shape) => (
-        <div className="selector_item">
-            <div className="item_id" onClick={() => props.select(shape)}>{ shape.shape }</div>
-            <div className="item_button">
-                <Icon type="plus-square" style={{ marginRight: "3px" }}
-                      onClick={() => props.addSameElement(shape)}/>
-                <Icon type="minus-square"
-                      onClick={() => props.ungroup(shape)}/>
-            </div>
-        </div>
-    ));
-    return (
-        <div className="selector">
-            <div className="selector_title">
-                Group
-                <Icon type="plus"
-                      style={{ color: "#E7EAED", float: "right", marginRight: "10px", marginTop: "3px" }}
-                      onClick={() => props.addGroup()}/>
-                { props.groupState ? (
-                    <div className="combiner">
-                        <div className="combiner_title">
-                            Combiner
-                        </div>
-                        <div className="group_items">
-                            { groupItem }
-                        </div>
-                        <div className="group_button">
-                            <button onClick={() => props.group()} id="group_button">组合</button>
-                            <button onClick={() => props.cancelGroup()} id="cancel_button">取消</button>
-                        </div>
-                    </div>) : null }
-            </div>
-            <div className="selector_items">
-                { selectorItem }
-            </div>
-        </div>
-    )
-}
-
-function Regulator(props) {
-    const { selected } = props;
-    let [result, j] = [[], 0];
-    const undisplayed = ["shape", "elements", "allAnimate", "previewAnimate"];
-    for (let i in selected) {
-        if (undisplayed.indexOf(i) < 0) {
-            result[j++] = (
-                <div className="regulator">
-                    <div className="regulator_title">{ i }</div>
-                    <div className="regulator_window">
-                        <input className="regulator_input" value={selected[i]}
-                               onChange={(event) => props.readjust(event, i)}/>
-                    </div>
-                </div>
-            );
-        }
-    }
-    return (result)
-}
-
-class Animator extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedAnimation: []
-        }
-    }
-
-    handleChange = (checked, tag) => {
-        const { selectedAnimation } = this.state;
-        const nextSelectedAnimation = checked ? [...selectedAnimation, tag] : selectedAnimation.filter(t => t !== tag);
-        this.setState({
-            selectedAnimation: nextSelectedAnimation
-        })
-    };
-
-    delete = () => {
-        const { selectedAnimation } = this.state;
-        let { selected } = this.props;
-        selected.allAnimate = selected.allAnimate.filter(t => selectedAnimation.indexOf(t) < 0);
-        this.props.changeElement(selected);
-        this.setState({
-            selectedAnimation: []
-        })
-    };
-
-    preview = () => {
-        const { selectedAnimation } = this.state;
-        let { selected } = this.props;
-        selected.previewAnimate = [...selected.previewAnimate, selectedAnimation];
-        this.props.changeElement(selected);
-    };
-
-    render() {
-        const { selected } = this.props;
-        const { selectedAnimation } = this.state;
-        const allAnimationTag = selected ? selected.allAnimate.map(animation => (
-            <CheckableTag
-                checked={selectedAnimation.indexOf(animation) > -1}
-                onChange={checked => this.handleChange(checked, animation)}>
-                { animation.name }
-            </CheckableTag>
-        )) : null;
-        return (
-            <div id="animation">
-                <Tabs defaultActiveKey="1" size="small">
-                    <TabPane tab="Preview" key="1">
-                        <div id="tags">
-                            { allAnimationTag }
-                        </div>
-                        <div id="tags_operation">
-                            <Button type="primary" onClick={() => this.preview()}>预览</Button>
-                            <Button type="primary" style={{ marginLeft: "50px" }}
-                            onClick={() => this.delete()}>删除</Button>
-                        </div>
-                    </TabPane>
-                    <TabPane tab="Add" key="2">
-
-                    </TabPane>
-                </Tabs>
-            </div>
-        )
-    }
-}
-
-class Operationbar extends React.Component {
+class OperationBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -411,4 +237,4 @@ class Operationbar extends React.Component {
     }
 }
 
-export default Operationbar;
+export default OperationBar;

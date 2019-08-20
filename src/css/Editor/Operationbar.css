@@ -169,3 +169,28 @@
     color: #E7EAED !important;
     font-weight: 500;
 }
+
+.ant-tabs-ink-bar {
+    background-color: #3F3F3F;
+}
+
+.ant-btn-primary {
+    color: #E7EAED;
+    background-color: #242424;
+    border: 1px solid #E7EAED;
+    border-radius: 0;
+}
+
+.ant-btn-primary:active, .ant-btn-primary.active {
+    color: #fff;
+    background-color: #3F3F3F;
+    border-width: 1.5px;
+    border-color: #E7EAED;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+    color: #fff;
+    background-color: #3F3F3F;
+    border-width: 1.5px;
+    border-color: #E7EAED;
+}
