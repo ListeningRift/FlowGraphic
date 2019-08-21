@@ -30,6 +30,8 @@ class Circle {
     }
 
     editor() {
+        console.log("previewAnimate: ");
+        console.log(this.previewAnimate);
         return <circle cx={this.cx * 0.5} cy={this.cy * 0.5} r={this.r * 0.5}
                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}>

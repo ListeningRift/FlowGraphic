@@ -33,15 +33,20 @@ class Animator extends React.Component {
     preview = () => {
         const { selectedAnimation } = this.state;
         let { selected } = this.props;
-        selected.previewAnimate = [...selected.previewAnimate, selectedAnimation];
+        selected.previewAnimate = selected.previewAnimate.concat(selectedAnimation);
+        this.props.changeElement(selected);
+    };
+
+    stop = () => {
+        let { selected } = this.props;
+        selected.previewAnimate = [];
         this.props.changeElement(selected);
     };
 
     render() {
         const { selected } = this.props;
         const { selectedAnimation } = this.state;
-        console.log(selected.allAnimate);
-        const allAnimationTag = selected ? selected.allAnimate.map(animation => (
+        const allAnimationTag = selected && selected.allAnimate ? selected.allAnimate.map(animation => (
             <CheckableTag
                 checked={selectedAnimation.indexOf(animation) > -1}
                 onChange={checked => this.handleChange(checked, animation)}>
@@ -57,6 +62,8 @@ class Animator extends React.Component {
                         </div>
                         <div id="tags_operation">
                             <Button type="primary" onClick={() => this.preview()}>预览</Button>
+                            <Button type="primary" style={{ marginLeft: "50px" }}
+                                    onClick={() => this.stop()}>停止</Button>
                             <Button type="primary" style={{ marginLeft: "50px" }}
                                     onClick={() => this.delete()}>删除</Button>
                         </div>

@@ -45,9 +45,9 @@ class Animate {
     }
 
     editor() {
-        const values = this.values.map((value) => {
+        const values = this.values ? this.values.map((value) => {
             return value * 0.5
-        }).join("; ");
+        }).join("; ") : null;
         return <animate id={this.id} 
         attributeName={this.attributeName} attributeType={this.attributeType}
         from={this.from * 0.5} to={this.to * 0.5} values={values} by={this.by * 0.5}
@@ -104,9 +104,9 @@ class AnimateTransform {
     }
 
     editor() {
-        const values = this.values.map((value) => {
+        const values = this.values ? this.values.map((value) => {
             return value * 0.5
-        }).join("; ");
+        }).join("; ") : null;
         return <animateTransform id={this.id}
                         attributeName={this.attributeName} attributeType={this.attributeType} type={this.type}
                         from={this.from * 0.5} to={this.to * 0.5} values={values} by={this.by * 0.5}

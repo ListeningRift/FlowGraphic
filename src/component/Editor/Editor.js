@@ -15,6 +15,7 @@ class Editor extends React.Component {
         const c = new Line({x1: 50, y1: 30,x2: 500, y2: 300, stroke: "black"});
         const animation = new AnimateTransform({name:"放大", begin:"0s", dur:"3s", type:"scale", from:"1", to:"1.5", repeatCount:"indefinite"});
         a.addAnimate(animation);
+        console.log(animation);
         console.log(a);
         this.state = {
             // actionList为所有动作的列表
@@ -107,6 +108,7 @@ class Editor extends React.Component {
         const { actionList, preview, selected } = this.state;
         const [preIndex, selectedIndex] = [actionList.indexOf(preview), preview.indexOf(selected)];
         actionList[preIndex][selectedIndex] = element;
+        this.changeActionList(actionList);
     };
 
     render() {

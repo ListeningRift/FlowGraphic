@@ -1,0 +1,25 @@
+#register{
+    width: 100%;
+    height: 100%;
+    background-color: #242424;
+}
+
+#register_card{
+    background-color: #E7EAED;
+    width: 525px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#register_context{
+    width: 75%;
+    margin: 10px auto;
+}
+
+.ant-btn-primary {
+    background-color: #3F3F3F !important;
+    color: #E7EAED !important;
+    border-color: #3F3F3F !important;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
-import Editor from './component/Editor/Editor';
+import Register from './component/Register/Register';
 
 function App() {
     return (
-        <Editor/>
+        <Register/>
     )
 }
 

@@ -153,6 +153,7 @@
 }
 
 #tags_operation {
+    margin-top: 20px;
     width: 100%;
     text-align: center;
 }
@@ -193,4 +194,19 @@
     background-color: #3F3F3F;
     border-width: 1.5px;
     border-color: #E7EAED;
+}
+
+.ant-tag-checkable {
+    border: 1px solid #E7EAED;
+    color: #E7EAED;
+}
+
+.ant-tag-checkable-checked {
+    background-color: #E7EAED;
+    color: #3F3F3F;
+}
+
+#tags {
+    width: 90%;
+    padding-left: 5%;
 }
