@@ -1,0 +1,24 @@
+.ant-menu {
+    margin-top: 64px;
+}
+
+.ant-layout-sider {
+    background-color: #242424;
+}
+
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+    background-color: #242424;
+    color: #E7EAED;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background-color: #3F3F3F;
+}
+
+.ant-layout-sider-trigger {
+    background-color: #242424;
+}
+
+.ant-layout-header {
+    background-color: #242424;
+}

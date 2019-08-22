@@ -1,9 +1,9 @@
 import React from 'react';
-import Register from './component/Register/Register';
+import Home from './component/Home/Home';
 
 function App() {
     return (
-        <Register/>
+        <Home/>
     )
 }
 
