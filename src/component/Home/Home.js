@@ -23,7 +23,7 @@ class Home extends React.Component {
             <div id="home">
                 <Layout>
                     <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-                        <SideBar/>
+                        <SideBar collapsed={this.state.collapsed}/>
                     </Sider>
                     <Layout>
                         <Header>

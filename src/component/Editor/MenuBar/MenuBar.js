@@ -97,7 +97,7 @@ function MenuBar() {
     return (
         <div style={{ width: "100%", height: "100%" }}>
             <div id="logo"
-                 style={{ width: "200px", height: "32.5px", position: "absolute", left: "5px" }}>
+                 style={{ width: "195px", height: "32.5px", position: "absolute", left: "5px" }}>
                 <img src={Logo} alt="" style={{ width: "100%", height: "100%" }}/>
             </div>
             <Menus/>

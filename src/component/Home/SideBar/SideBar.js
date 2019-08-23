@@ -3,16 +3,24 @@ import 'antd/dist/antd.css';
 import '../../../css/Home/SideBar.css';
 import { Menu, Icon } from "antd";
 import Logo from '../../Logo.png'
+import SLogo from '../../S_Logo.png';
 
 const { SubMenu } = Menu;
 
 function SideBar(props) {
     return (
         <div id="sidebar">
-            <div id="logo"
-                 style={{ width: "200px", height: "32.5px", position: "absolute", left: "5px", top: "5px" }}>
-                <img src={Logo} alt="" style={{ width: "100%", height: "100%" }}/>
-            </div>
+            { props.collapsed ? (
+                <div id="logo"
+                     style={{ width: "75px", height: "32.5px", position: "absolute", left: "5px", top: "5px" }}>
+                    <img src={SLogo} alt="" style={{ width: "100%", height: "100%" }}/>
+                </div>
+            ) : (
+                <div id="logo"
+                 style={{ width: "195px", height: "32.5px", position: "absolute", left: "5px", top: "5px" }}>
+                    <img src={Logo} alt="" style={{ width: "100%", height: "100%" }}/>
+                </div>
+            )}
             <Menu theme="dark" mode="inline">
                 <Menu.Item key="1">
                     <Icon type="user" />
