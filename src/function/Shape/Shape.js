@@ -45,6 +45,14 @@ class Circle {
                        fill={this.fill} fillOpacity={this.fillOpacity}/>
     }
 
+    cover() {
+        return <circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
+                       stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
+                       fill={this.fill} fillOpacity={this.fillOpacity}>
+            { this.allAnimate.map(animate => animate.result()) }
+        </circle>
+    }
+
     selected() {
         return (
             <g>
@@ -98,6 +106,14 @@ class Rect {
                      fill={this.fill} fillOpacity={this.fillOpacity}/>
     }
 
+    cover() {
+        return <rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
+                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
+                     fill={this.fill} fillOpacity={this.fillOpacity}>
+            { this.allAnimate.map(animate => animate.result()) }
+        </rect>
+    }
+
     selected() {
         return (
             <g>
@@ -133,7 +149,7 @@ class Ellipse {
         return <ellipse cx={this.cx} cy={this.cy} rx={this.rx} ry={this.ry}
                      stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}>
-            { this.previewAnimate.map(animate => animate.result()) }
+            { this.allAnimate.map(animate => animate.result()) }
             </ellipse>
     }
 
@@ -149,6 +165,14 @@ class Ellipse {
         return <ellipse cx={this.cx * 0.12} cy={this.cy * 0.12} rx={this.rx * 0.12} ry={this.ry * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}/>
+    }
+
+    list() {
+        return <ellipse cx={this.cx * 0.12} cy={this.cy * 0.12} rx={this.rx * 0.12} ry={this.ry * 0.12}
+                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
+                        fill={this.fill} fillOpacity={this.fillOpacity}>
+            { this.allAnimate.map(animate => animate.result()) }
+        </ellipse>
     }
 
     selected() {
@@ -197,6 +221,13 @@ class Line {
     list() {
         return <line x1={this.x1 * 0.12} y1={this.y1 * 0.12} x2={this.x2 * 0.12} y2={this.y2 * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}/>
+    }
+
+    cover() {
+        return <line x1={this.x1 * 0.12} y1={this.y1 * 0.12} x2={this.x2 * 0.12} y2={this.y2 * 0.12}
+                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}>
+            { this.allAnimate.map(animate => animate.result()) }
+        </line>
     }
 
     selected() {
@@ -262,6 +293,16 @@ class Text {
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}>
             { this.content }
             </text>
+    }
+
+    cover() {
+        return <text x={this.x * 0.12} y={this.y * 0.12}
+                     fontSize={this.fontSize * 0.12}
+                     fill={this.fill} fillOpacity={this.fillOpacity}
+                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}>
+            { this.content }
+            { this.allAnimate.map(animate => animate.result()) }
+        </text>
     }
 
     selected() {
