@@ -56,6 +56,19 @@ class Animate {
         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
+
+    cover() {
+        const values = this.values ? this.values.map((value) => {
+            return value * 0.15
+        }).join("; ") : null;
+        return <animate id={this.id}
+                        attributeName={this.attributeName} attributeType={this.attributeType}
+                        from={this.from * 0.15} to={this.to * 0.15} values={values} by={this.by * 0.15}
+                        begin={this.begin} end={this.end} dur={this.dur}
+                        keyTimes={this.keyTimes} keySplines={this.keySplines}
+                        repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
+                        accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
+    }
 }
 
 class AnimateTransform {
@@ -115,6 +128,19 @@ class AnimateTransform {
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
+
+    cover() {
+        const values = this.values ? this.values.map((value) => {
+            return value * 0.15
+        }).join("; ") : null;
+        return <animateTransform id={this.id}
+                                 attributeName={this.attributeName} attributeType={this.attributeType} type={this.type}
+                                 from={this.from * 0.15} to={this.to * 0.15} values={values} by={this.by * 0.15}
+                                 begin={this.begin} end={this.end} dur={this.dur}
+                                 keyTimes={this.keyTimes} keySplines={this.keySplines}
+                                 repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
+                                 accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
+    }
 }
 
 class AnimateMotion {
@@ -163,6 +189,15 @@ class AnimateMotion {
                         calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keyPoints}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
                         accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
+    }
+
+    cover() {
+        return <animateMotion id={this.id}
+                              path={this.path} rotate={this.rotate}
+                              begin={this.begin} end={this.end} dur={this.dur}
+                              calcMode={this.calcMode} keyTimes={this.keyTimes} keySplines={this.keyPoints}
+                              repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
+                              accumulate={this.accumulate} additive={this.additive} restart={this.restart}/>
     }
 }
 
