@@ -2,14 +2,15 @@ import React from "react";
 import { Layout } from "antd";
 import SideBar from "./SideBar/SideBar";
 import '../../css/Home/Home.css';
+import Recommanded from './Recommended/Recommended'
 
-const { Sider, Header, Content, Footer } = Layout;
+const { Sider, Content, Footer } = Layout;
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            collapsed: true,
+            collapsed: false,
         };
     }
 
@@ -26,14 +27,12 @@ class Home extends React.Component {
                         <SideBar collapsed={this.state.collapsed}/>
                     </Sider>
                     <Layout>
-                        <Header>
-                            2
-                        </Header>
-                        <Content>
-                            3
+                        <Content style={{ backgroundColor: "#E7EAED" }}>
+                            <Recommanded/>
                         </Content>
-                        <Footer>
-                            4
+                        <Footer style={{ textAlign: "center" }}>
+                            FlowGraphic, welcome to use!<br/>
+                            https://github.com/ListeningRift/FlowGraphic
                         </Footer>
                     </Layout>
                 </Layout>

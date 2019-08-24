@@ -59,11 +59,11 @@ class Animate {
 
     cover() {
         const values = this.values ? this.values.map((value) => {
-            return value * 0.15
+            return value * 0.14
         }).join("; ") : null;
         return <animate id={this.id}
                         attributeName={this.attributeName} attributeType={this.attributeType}
-                        from={this.from * 0.15} to={this.to * 0.15} values={values} by={this.by * 0.15}
+                        from={this.from * 0.14} to={this.to * 0.14} values={values} by={this.by * 0.14}
                         begin={this.begin} end={this.end} dur={this.dur}
                         keyTimes={this.keyTimes} keySplines={this.keySplines}
                         repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
@@ -131,11 +131,11 @@ class AnimateTransform {
 
     cover() {
         const values = this.values ? this.values.map((value) => {
-            return value * 0.15
+            return value * 0.14
         }).join("; ") : null;
         return <animateTransform id={this.id}
                                  attributeName={this.attributeName} attributeType={this.attributeType} type={this.type}
-                                 from={this.from * 0.15} to={this.to * 0.15} values={values} by={this.by * 0.15}
+                                 from={this.from * 0.14} to={this.to * 0.14} values={values} by={this.by * 0.14}
                                  begin={this.begin} end={this.end} dur={this.dur}
                                  keyTimes={this.keyTimes} keySplines={this.keySplines}
                                  repeatCount={this.repeatCount} repeatDur={this.repeatDur} fill={this.fill}
