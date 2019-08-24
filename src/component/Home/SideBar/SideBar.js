@@ -22,12 +22,21 @@ function SideBar(props) {
                 </div>
             )}
             <Menu theme="dark" mode="inline">
-                <Menu.Item key="1">
-                    <Icon type="user" />
-                    <span className="nav-text">Home</span>
-                </Menu.Item>
                 <SubMenu
                     key="sub1"
+                    title={
+                        <span>
+                            <Icon type="user" />
+                            <span>{ props.name }</span>
+                        </span>
+                    }
+                >
+                    <Menu.Item key="1">My Information</Menu.Item>
+                    <Menu.Item key="2">My Collection</Menu.Item>
+                    <Menu.Item key="3">My Store</Menu.Item>
+                </SubMenu>
+                <SubMenu
+                    key="sub2"
                     title={
                         <span>
                             <Icon type="bank" />
@@ -35,12 +44,12 @@ function SideBar(props) {
                         </span>
                     }
                 >
-                    <Menu.Item key="2">FG</Menu.Item>
-                    <Menu.Item key="3">Animation</Menu.Item>
-                    <Menu.Item key="4">Group (In Development)</Menu.Item>
+                    <Menu.Item key="4">FG</Menu.Item>
+                    <Menu.Item key="5">Animation</Menu.Item>
+                    <Menu.Item key="6">Group (In Development)</Menu.Item>
                 </SubMenu>
                 <SubMenu
-                    key="sub2"
+                    key="sub3"
                     title={
                         <span>
                             <Icon type="edit" />
@@ -48,11 +57,11 @@ function SideBar(props) {
                         </span>
                     }
                 >
-                    <Menu.Item key="5">New FG</Menu.Item>
-                    <Menu.Item key="6">Open FG</Menu.Item>
+                    <Menu.Item key="7">New FG</Menu.Item>
+                    <Menu.Item key="8">Open FG</Menu.Item>
                 </SubMenu>
                 <SubMenu
-                    key="sub3"
+                    key="sub4"
                     title={
                         <span>
                             <Icon type="tool" />
@@ -60,8 +69,8 @@ function SideBar(props) {
                         </span>
                     }
                 >
-                    <Menu.Item key="7">Animation Editor</Menu.Item>
-                    <Menu.Item key="8">Group Editor (In Development)</Menu.Item>
+                    <Menu.Item key="9">Animation Editor</Menu.Item>
+                    <Menu.Item key="10">Group Editor (In Development)</Menu.Item>
                 </SubMenu>
 
             </Menu>
