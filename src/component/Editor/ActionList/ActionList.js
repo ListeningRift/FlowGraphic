@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from 'antd';
 import Combinator from './Combinator';
 import '../../../css/Editor/ActionList.css';
-import { NewAction } from "../../../function/PromptAction";
+import { NewAction } from "../../../function/Element/SpecialAction";
 
 
 class ActionList extends React.Component {

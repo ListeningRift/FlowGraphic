@@ -1,9 +1,9 @@
 import React from "react";
 import 'antd/dist/antd.css';
 import '../../../css/Editor/Operationbar.css';
-import { Circle, Ellipse, Line, Rect, Text } from "../../../function/Shape/Shape";
-import { NewAction } from "../../../function/PromptAction";
-import Group from "../../../function/Shape/Group";
+import { Circle, Ellipse, Line, Rect, Text } from "../../../function/Element/Shape";
+import { NewAction } from "../../../function/Element/SpecialAction";
+import Group from "../../../function/Element/Group";
 import { Selector, GroupSelector } from "./Selector";
 import Regulator from "./Regulator";
 import Animator from "./Animator";

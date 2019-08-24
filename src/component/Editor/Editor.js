@@ -3,7 +3,7 @@ import '../../css/Editor/Editor.css';
 import MenuBar from './MenuBar/MenuBar';
 import ActionList from './ActionList/ActionList';
 import OperationBar from "./OperationBar/OperationBar";
-import { Circle, Rect, Line, Ellipse, Text } from "../../function/Shape/Shape";
+import { Circle, Rect, Line, Ellipse, Text } from "../../function/Element/Shape";
 import { AnimateTransform } from "../../function/Animation/AnimateTag";
 
 

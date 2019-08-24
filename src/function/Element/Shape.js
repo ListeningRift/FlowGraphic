@@ -30,8 +30,6 @@ class Circle {
     }
 
     editor() {
-        console.log("previewAnimate: ");
-        console.log(this.previewAnimate);
         return <circle cx={this.cx * 0.5} cy={this.cy * 0.5} r={this.r * 0.5}
                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}>
@@ -167,7 +165,7 @@ class Ellipse {
                      fill={this.fill} fillOpacity={this.fillOpacity}/>
     }
 
-    list() {
+    cover() {
         return <ellipse cx={this.cx * 0.12} cy={this.cy * 0.12} rx={this.rx * 0.12} ry={this.ry * 0.12}
                         stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                         fill={this.fill} fillOpacity={this.fillOpacity}>
