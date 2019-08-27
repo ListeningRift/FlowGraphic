@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/Editor/Editor.css';
+import '../css/Editor/Editor.css';
 import MenuBar from './MenuBar/MenuBar';
 import ActionList from './ActionList/ActionList';
 import OperationBar from "./OperationBar/OperationBar";

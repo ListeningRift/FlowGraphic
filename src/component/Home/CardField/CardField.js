@@ -1,7 +1,7 @@
 import React from "react";
 import CoverCard from "./Card";
 import {Row, Col, Button} from "antd";
-import '../../../css/Home/Recommanded.css';
+import '../../../css/Home/CardField.css';
 
 function CardField(props) {
     return (

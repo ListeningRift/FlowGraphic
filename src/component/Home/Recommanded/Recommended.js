@@ -1,6 +1,6 @@
 import React from "react";
-import CardField from "./CardField";
-import '../../../css/Home/Recommanded.css';
+import CardField from "../CardField/CardField";
+import '../../../css/Home/CardField.css';
 
 class Recommended extends React.Component {
     constructor(props) {

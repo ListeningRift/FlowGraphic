@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/Register/Register.css';
+import '../css/Register/Register.css';
 import RegisterContext from './RegisterContext';
 import Logo from "../Logo.png";
 

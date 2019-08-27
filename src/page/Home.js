@@ -1,8 +1,8 @@
 import React from "react";
 import { Layout } from "antd";
-import SideBar from "./SideBar/SideBar";
-import '../../css/Home/Home.css';
-import Recommanded from './Recommended/Recommended'
+import SideBar from "../component/Home/SideBar/SideBar";
+import '../css/Home/Home.css';
+import Recommanded from '../component/Home/Recommanded/Recommended'
 
 const { Sider, Content, Footer } = Layout;
 
