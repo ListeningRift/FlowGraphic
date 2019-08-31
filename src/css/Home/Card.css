@@ -1,0 +1,20 @@
+.ant-card-actions {
+    background: #E7EAED;
+    height: 35px;
+}
+
+.ant-card-actions > li {
+    margin: 7px 0;
+}
+
+.ant-card-meta-title {
+    font-size: 15px;
+}
+
+.ant-card-meta-detail > div:not(:last-child) {
+    margin-bottom: 2px;
+}
+
+.ant-card {
+    font-size: 13px;
+}

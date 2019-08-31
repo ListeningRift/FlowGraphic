@@ -2,7 +2,7 @@ import React from "react";
 import { Layout } from "antd";
 import SideBar from "../component/Home/SideBar/SideBar";
 import '../css/Home/Home.css';
-import Recommanded from '../component/Home/Recommanded/Recommended'
+import CardList from '../component/Home/Store/CardList';
 
 const { Sider, Content, Footer } = Layout;
 
@@ -28,7 +28,7 @@ class Home extends React.Component {
                     </Sider>
                     <Layout>
                         <Content style={{ backgroundColor: "#E7EAED" }}>
-                            <Recommanded/>
+                            <CardList/>
                         </Content>
                         <Footer style={{ textAlign: "center" }}>
                             FlowGraphic, welcome to use!<br/>

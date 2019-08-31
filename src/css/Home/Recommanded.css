@@ -1,32 +1,12 @@
-.ant-card-actions {
-    background: #E7EAED;
-    height: 35px;
-}
-
-.ant-card-actions > li {
-    margin: 7px 0;
-}
-
-.ant-card-meta-title {
-    font-size: 15px;
-}
-
-.ant-card-meta-detail > div:not(:last-child) {
-    margin-bottom: 2px;
-}
-
-.ant-card {
-    font-size: 13px;
-}
-
-.card_field {
+.card-field {
     width: 94%;
     height: 275px;
-    margin: 55px 3%;
+    margin: 45px 3%;
     background-color: #242424;
+    border-radius: 10px;
 }
 
-.card_field_title {
+.card-field-title {
     height: 35px;
     color: #E7EAED;
     font-size: 20px;

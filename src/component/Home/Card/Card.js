@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Icon } from "antd";
+import '../../../css/Home/Card.css';
 
 const { Meta } = Card;
 

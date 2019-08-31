@@ -1,0 +1,25 @@
+#card-list {
+    width: 94%;
+    margin: 45px 3%;
+    background-color: #242424;
+    border-radius: 10px;
+    padding-bottom: 20px;
+}
+
+#card-list-title {
+    height: 35px;
+    color: #E7EAED;
+    font-size: 20px;
+    margin-left: 15px;
+    line-height: 35px;
+}
+
+#card-list-pagination {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.ant-pagination-options-quick-jumper {
+    color: #E7EAED;
+}
