@@ -1,11 +1,11 @@
-.action_item {
+.action-item {
     width: 100%;
     height: 13.62%;
     margin-left: 5%;
     margin-top: 6%;
 }
 
-.action_item>svg {
+.action-item>svg {
     width: 12vw;
     height: 12vh;
     border: 1px solid black;
@@ -13,12 +13,12 @@
     box-sizing: border-box;
  }
 
-.action_item>svg:hover {
+.action-item>svg:hover {
     border-color: #FCB401;
     border-width: 2px;
 }
 
-#new_plus {
+#new-plus {
     width: 12vw;
     height: 12vh;
     background: white;
@@ -28,7 +28,7 @@
     box-sizing: border-box;
 }
 
-#new_plus:hover {
+#new-plus:hover {
     border-width: 2px;
     border-color: #FCB401;
 }
@@ -39,16 +39,16 @@
     margin-right: 8px;
 }
 
-#action_combination {
+#action-combination {
     position: absolute;
     width: 100%;
-    height: 95.74%;
+    height: 100%;
     left: 100%;
-    bottom: 0;
+    top: 0;
     background: #242424;
 }
 
-#combination_title {
+#combination-title {
     color: #E7EAED;
     font-size: 16px;
     padding-left: 7%;
@@ -56,7 +56,7 @@
     height: 3%;
 }
 
-#combination_items {
+#combination-items {
     width: 100%;
     height: 87%;
     margin-top: 10px;
@@ -65,14 +65,14 @@
     overflow-x: hidden;
 }
 
-.combination_item {
+.combination-item {
     width: 100%;
     height: 15.13%;
     margin-left: 5%;
     margin-top: 6%;
 }
 
-.combination_item>svg {
+.combination-item>svg {
     width: 12vw;
     height: 12vh;
     border: 1px solid black;
@@ -80,7 +80,7 @@
     box-sizing: border-box;
 }
 
-#combination_button {
+#combination-button {
     width: 100%;
     text-align: center;
     margin-top: 12px;

@@ -7,26 +7,23 @@ function Combinator(props) {
 
     // 将数组内动作组合起来
     const combination = () => {
-        let { actionList, finishedActionList, combinationAction } = props;
+        let { actionList, combinationAction } = props;
         let actions = [];
         combinationAction.forEach((action) => {
             actions = actions.concat(action);
             const i = actionList.indexOf(action);
             actionList.splice(i, 1);
         });
-        finishedActionList.push(actions);
+        actionList.push(actions);
         props.changeActionList(actionList);
-        props.changeFinishedActionList(finishedActionList);
         props.changeCombinationAction([]);
         props.changeCombinationState(false);
-        props.onOpenChange()
     };
 
     // 取消组合动作
     const cancelCombination = () => {
         props.changeCombinationAction([]);
         props.changeCombinationState(false);
-        props.onOpenChange();
     };
 
     // 删除动作组合器中的动作
@@ -51,12 +48,12 @@ function Combinator(props) {
         </div>
     ));
     return (
-        <div id="action_combination" style={{ display: props.combinationState ? null : "none" }}>
-            <div id="combination_title">Action Combinator</div>
-            <div id="combination_items">
+        <div id="action-combination" style={{ display: props.combinationState ? null : "none" }}>
+            <div id="combination-title">Action Combinator</div>
+            <div id="combination-items">
                 { combinationItems }
             </div>
-            <div id="combination_button">
+            <div id="combination-button">
                 <Button type="primary" onClick={combination}>组合</Button>
                 <Button type="primary" style={{ marginLeft: "25px" }}
                         onClick={cancelCombination}>取消</Button>

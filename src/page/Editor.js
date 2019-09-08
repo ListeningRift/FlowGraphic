@@ -1,10 +1,10 @@
 import React from 'react';
 import '../css/Editor/Editor.css';
-import MenuBar from './MenuBar/MenuBar';
-import ActionList from './ActionList/ActionList';
-import OperationBar from "./OperationBar/OperationBar";
-import { Circle, Rect, Line, Ellipse, Text } from "../../function/Element/Shape";
-import { AnimateTransform } from "../../function/Animation/AnimateTag";
+import MenuBar from '../component/Editor/MenuBar/MenuBar';
+import ActionList from '../component/Editor/ActionList/ActionList';
+import OperationBar from "../component/Editor/OperationBar/OperationBar";
+import { Circle, Rect, Line, Ellipse, Text } from "../function/Element/Shape";
+import { AnimateTransform } from "../function/Animation/AnimateTag";
 
 
 class Editor extends React.Component {
@@ -20,8 +20,6 @@ class Editor extends React.Component {
         this.state = {
             // actionList为所有动作的列表
             actionList: [[a, c], [b]],
-            // finishedActionList已完成的动作，组合后的列表
-            finishedActionList: [[c], [a], [b]],
 
             // preview为当前编辑栏中的动作
             preview: undefined,
@@ -44,13 +42,6 @@ class Editor extends React.Component {
     changeActionList = newActionList => {
         this.setState({
             actionList: newActionList
-        })
-    };
-
-    // finishedActionList更改
-    changeFinishedActionList = newFinishedActionList => {
-        this.setState({
-            finishedActionList: newFinishedActionList
         })
     };
 
@@ -138,7 +129,6 @@ class Editor extends React.Component {
                 <div id="action_list">
                     <ActionList
                         actionList={this.state.actionList}
-                        finishedActionList={this.state.finishedActionList}
                         combinationState={this.state.combinationState}
                         combinationAction={this.state.combinationAction}
 
