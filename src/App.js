@@ -1,8 +1,8 @@
 import React from 'react';
-import Home from './page/Home';
+import Component from './page/Editor';
 
 function App() {
-    return <Home/>
+    return <Component/>
 }
 
 export default App;

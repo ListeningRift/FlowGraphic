@@ -1,0 +1,17 @@
+#work-station {
+    height: 100%;
+    background-color: #242424;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: width 0.5s;
+}
+
+#work-station-switch {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: #242424;
+    position: absolute;
+    transition: right 0.5s;
+}

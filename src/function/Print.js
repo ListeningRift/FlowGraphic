@@ -1,5 +1,4 @@
 
-
 function PrintCover(actionList) {
     actionList.map(action => action.map(element => element.cover()))
 }

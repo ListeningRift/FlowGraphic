@@ -3,27 +3,19 @@ import '../css/Editor/Editor.css';
 import MenuBar from '../component/Editor/MenuBar/MenuBar';
 import ActionList from '../component/Editor/ActionList/ActionList';
 import OperationBar from "../component/Editor/OperationBar/OperationBar";
-import { Circle, Rect, Line, Ellipse, Text } from "../function/Element/Shape";
-import { AnimateTransform } from "../function/Animation/AnimateTag";
-
+import { Circle, Rect, Line } from "../function/Element/BasicElement";
+import { AnimateTransform } from "../function/Animation/BasicAnimate";
 
 class Editor extends React.Component {
     constructor(props) {
         super(props);
-        let a = new Circle({cx: 500, cy: 500, r: 300});
-        const b = new Rect({x: 300, y: 300, width: 100, height: 100});
-        const c = new Line({x1: 50, y1: 30,x2: 500, y2: 300, stroke: "black"});
-        const animation = new AnimateTransform({name:"放大", begin:"0s", dur:"3s", type:"scale", from:"1", to:"1.5", repeatCount:"indefinite"});
-        a.addAnimate(animation);
-        console.log(animation);
-        console.log(a);
         this.state = {
             // actionList为所有动作的列表
-            actionList: [[a, c], [b]],
+            actionList: [],
 
             // preview为当前编辑栏中的动作
             preview: undefined,
-            // selected编辑栏中动作被选中元素
+            // select编辑栏中动作被选中元素
             selected: undefined,
 
             // 元素组合状态，true时为元素组合状态，false时正常状态
@@ -35,7 +27,18 @@ class Editor extends React.Component {
             combinationState: false,
             // 动作组合数组，准备组合的动作的数组
             combinationAction: []
-        }
+        };
+    }
+
+    componentDidMount() {
+        let a = new Circle({cx: 500, cy: 500, r: 300}, this.changeSelected);
+        const b = new Rect({x: 300, y: 300, width: 100, height: 100}, this.changeSelected);
+        const c = new Line({x1: 50, y1: 30,x2: 500, y2: 300, stroke: "black"}, this.changeSelected);
+        const animation = new AnimateTransform({name:"放大", begin:"0s", dur:"3s", type:"scale", from:"1", to:"1.5", repeatCount:"indefinite"});
+        a.addAnimate(animation);
+        this.setState({
+            actionList: [[a, c], [b]]
+        })
     }
 
     // actionList更改
@@ -52,11 +55,11 @@ class Editor extends React.Component {
         })
     };
 
-    // selected更改
+    // select更改
     changeSelected = newSelected => {
         this.setState({
             selected: newSelected
-        })
+        });
     };
 
     // groupState更改
@@ -103,6 +106,7 @@ class Editor extends React.Component {
     };
 
     render() {
+        console.log("render");
         const { preview, selected } = this.state;
         let editor;
         if (preview !== undefined) {
@@ -126,14 +130,13 @@ class Editor extends React.Component {
                         { editor }
                     </svg>
                 </div>
-                <div id="action_list">
+                <div id="action_list" onClick={this.unselect}>
                     <ActionList
                         actionList={this.state.actionList}
                         combinationState={this.state.combinationState}
                         combinationAction={this.state.combinationAction}
 
                         changeActionList={this.changeActionList}
-                        changeFinishedActionList={this.changeFinishedActionList}
                         changePreview={this.changePreview}
                         changeGroupState={this.changeGroupState}
                         changeCombinationState={this.changeCombinationState}
@@ -154,9 +157,6 @@ class Editor extends React.Component {
                         changeGroupState={this.changeGroupState}
                         changeGroupElement={this.changeGroupElement}/>
                 </div>
-                {/*<div id="animation_bar">*/}
-                {/*    <AnimationEditor/>*/}
-                {/*</div>*/}
             </div>
         )
     }

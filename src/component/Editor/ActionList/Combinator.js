@@ -35,7 +35,7 @@ function Combinator(props) {
 
     const { combinationAction } = props;
     const combinationItems = combinationAction.map((actions, index) => (
-        <div className="combination_item">
+        <div className="combination-item">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                  key={index}>
                 { actions.map((action) => (action.list())) }
