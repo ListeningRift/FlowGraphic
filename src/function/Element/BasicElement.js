@@ -3,7 +3,9 @@ import React from 'react';
 import SelectBox from "./SelectedBox";
 
 class Circle {
-    constructor({cx, cy, r, stroke, strokeWidth, strokeOpacity, fill, fillOpacity}, onClick) {
+    constructor({cx, cy, r,
+                    stroke, strokeWidth, strokeOpacity,
+                    fill, fillOpacity}, onclick) {
         this.cx = cx;
         this.cy = cy;
         this.r = r;
@@ -15,14 +17,19 @@ class Circle {
         this.shape = "Circle";
         this.allAnimate = [];
         this.previewAnimate = [];
-        this.onClick = onClick;
+        this.onclick = onclick;
     }
 
-    addAnimate = animate => {
-        this.allAnimate = this.allAnimate.concat(animate)
+    onClick = e => {
+        this.onclick(this);
+        e.stopPropagation();
     };
 
-    result = () => {
+    addAnimate(animate) {
+        this.allAnimate = this.allAnimate.concat(animate)
+    }
+
+    result() {
         return (<circle cx={this.cx} cy={this.cy} r={this.r}
                        stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}>
@@ -31,22 +38,23 @@ class Circle {
     };
 
 
-    editor = () => {
+    editor() {
         return (<circle cx={this.cx * 0.5} cy={this.cy * 0.5} r={this.r * 0.5}
-                       stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
-                       fill={this.fill} fillOpacity={this.fillOpacity} onClick={() => this.onClick(this)}>
-            { this.previewAnimate.map(animate => animate.editor()) }
-            </circle>)
+                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
+                        fill={this.fill} fillOpacity={this.fillOpacity}
+                        onDoubleClick={this.onClick}>
+            {this.previewAnimate.map(animate => animate.editor())}
+        </circle>)
     };
 
 
-    list = () => {
+    list() {
         return (<circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}/>)
     };
 
-    cover = () => {
+    cover() {
         return (<circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}>
@@ -55,7 +63,7 @@ class Circle {
     };
 
 
-    selected = () => {
+    selected() {
         return (<g>
                 {this.editor()}
                 <SelectBox x={(this.cx - this.r) * 0.5} y={(this.cy - this.r) * 0.5}
@@ -68,7 +76,9 @@ class Circle {
 
 
 class Rect {
-    constructor({x, y, width, height, stroke, strokeWidth, strokeOpacity, fill, fillOpacity}) {
+    constructor({x, y, width, height,
+                    stroke, strokeWidth, strokeOpacity,
+                    fill, fillOpacity}, onclick) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -81,43 +91,50 @@ class Rect {
         this.shape = "Rect";
         this.allAnimate = [];
         this.previewAnimate = [];
+        this.onclick = onclick;
     }
 
-    addAnimate = animate => {
-        this.allAnimate = this.allAnimate.push(animate)
+    onClick = e => {
+        this.onclick(this);
+        e.stopPropagation();
     };
 
-    result = () => {
+    addAnimate(animate) {
+        this.allAnimate = this.allAnimate.push(animate)
+    }
+
+    result() {
         return (<rect x={this.x} y={this.y} width={this.width} height={this.height}
                      stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}>
             { this.allAnimate.map(animate => animate.result()) }
             </rect>)
-    };
+    }
     
-    editor = () => {
+    editor() {
         return (<rect x={this.x * 0.5} y={this.y * 0.5} width={this.width * 0.5} height={this.height * 0.5}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
-                     fill={this.fill} fillOpacity={this.fillOpacity}>
+                     fill={this.fill} fillOpacity={this.fillOpacity}
+                     onDoubleClick={this.onClick}>
             { this.previewAnimate.map(animate => animate.editor()) }
             </rect>)
-    };
+    }
     
-    list = () => {
+    list() {
         return (<rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}/>)
-    };
+    }
 
-    cover = () => {
+    cover() {
         return (<rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}>
             { this.allAnimate.map(animate => animate.result()) }
         </rect>)
-    };
+    }
 
-    selected = () => {
+    selected() {
         return (<g>
                 {this.editor()}
                 <SelectBox x={this.x * 0.5} y={this.y * 0.5}
@@ -128,7 +145,9 @@ class Rect {
 }
 
 class Ellipse {
-    constructor({cx, cy, rx, ry, stroke, strokeWidth, strokeOpacity, fill, fillOpacity}) {
+    constructor({cx, cy, rx, ry,
+                    stroke, strokeWidth, strokeOpacity,
+                    fill, fillOpacity}, onclick) {
         this.cx = cx;
         this.cy = cy;
         this.rx = rx;
@@ -141,10 +160,16 @@ class Ellipse {
         this.shape = "Ellipse";
         this.allAnimate = [];
         this.previewAnimate = [];
+        this.onclick = onclick;
     }
 
-    addAnimate = animate => {
+    addAnimate(animate) {
         this.allAnimate = this.allAnimate.push(animate)
+    }
+
+    onClick = e => {
+        this.onclick(this);
+        e.stopPropagation();
     };
 
     result() {
@@ -158,7 +183,8 @@ class Ellipse {
     editor() {
         return <ellipse cx={this.cx * 0.5} cy={this.cy * 0.5} rx={this.rx * 0.5} ry={this.ry * 0.5}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
-                     fill={this.fill} fillOpacity={this.fillOpacity}>
+                     fill={this.fill} fillOpacity={this.fillOpacity}
+                     onClick={this.onClick}>
             { this.previewAnimate.map(animate => animate.editor()) }
             </ellipse>
     }
@@ -189,7 +215,7 @@ class Ellipse {
 }
 
 class Line {
-    constructor({x1, y1, x2, y2, stroke, strokeWidth, strokeOpacity}) {
+    constructor({x1, y1, x2, y2, stroke, strokeWidth, strokeOpacity}, onclick) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -200,11 +226,17 @@ class Line {
         this.shape = "Line";
         this.allAnimate = [];
         this.previewAnimate = [];
+        this.onclick = onclick;
     }
 
     addAnimate(animate) {
         this.allAnimate = this.allAnimate.push(animate)
     }
+
+    onClick = e => {
+        this.onclick(this);
+        e.stopPropagation();
+    };
 
     result() {
         return <line x1={this.x1} y1={this.y1} x2={this.x2} y2={this.y2}
@@ -215,7 +247,8 @@ class Line {
 
     editor() {
         return <line x1={this.x1 * 0.5} y1={this.y1 * 0.5} x2={this.x2 * 0.5} y2={this.y2 * 0.5}
-                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}>
+                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
+                     onDoubleClick={this.onClick}>
             { this.previewAnimate.map(animate => animate.editor()) }
             </line>
     }
@@ -248,7 +281,7 @@ class Text {
                 fontSize, content,
                 fill, fillOpacity,
                 transform,
-                stroke, strokeWidth, strokeOpacity}) {
+                stroke, strokeWidth, strokeOpacity}, onclick) {
         this.x = x;
         this.y = y;
         this.fontSize = fontSize;
@@ -262,11 +295,17 @@ class Text {
         this.shape = "Text";
         this.allAnimate = [];
         this.previewAnimate = [];
+        this.onclick = onclick;
     }
 
     addAnimate(animate) {
         this.allAnimate = this.allAnimate.push(animate)
     }
+
+    onClick = e => {
+        this.onclick(this);
+        e.stopPropagation();
+    };
 
     result() {
         return <text x={this.x} y={this.y}
@@ -282,7 +321,8 @@ class Text {
         return <text x={this.x * 0.5} y={this.y * 0.5}
                      fontSize={this.fontSize * 0.5}
                      fill={this.fill} fillOpacity={this.fillOpacity}
-                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}>
+                     stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
+                     onDoubleClick={this.onClick}>
             { this.content }
             { this.previewAnimate.map(animate => animate.editor()) }
             </text>
