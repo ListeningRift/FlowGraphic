@@ -1,7 +1,7 @@
 import React from "react";
 import 'antd/dist/antd.css';
 import '../../../css/Editor/Operationbar.css';
-import { Circle, Ellipse, Line, Rect, Text } from "../../../function/Element/Shape";
+import { Circle, Ellipse, Line, Rect, Text } from "../../../function/Element/BasicElement";
 import { NewAction } from "../../../function/Element/SpecialAction";
 import Group from "../../../function/Element/Group";
 import { Selector, GroupSelector } from "./Selector";
@@ -11,7 +11,6 @@ import Animator from "./Animator";
 function Separator() {
     return <div style={{ borderTop: "solid #C0C0C0 1px", margin: "10px 2px" }}> </div>
 }
-
 
 class OperationBar extends React.Component {
     constructor(props) {
@@ -48,6 +47,7 @@ class OperationBar extends React.Component {
     // 选中编辑栏内某元素
     select = element => {
         if (!this.props.groupState) {
+            console.log("1");
             this.props.changeSelected(element)
         } else {
             let { groupElement } = this.props;
@@ -71,7 +71,7 @@ class OperationBar extends React.Component {
         const preIndex = actionList.indexOf(preview);
         let newElement;
         switch (shape) {
-            case "Circle":newElement = new Circle({cx:0, cy:0, r:0});
+            case "Circle":newElement = new Circle({cx:0, cy:0, r:0}, this.props.changeSelected);
                 break;
             case "Rect":newElement = new Rect({x:0, y:0, width:0, height:0});
                 break;
@@ -97,7 +97,7 @@ class OperationBar extends React.Component {
         const preIndex = actionList.indexOf(preview);
         let newElement;
         switch (element.shape) {
-            case "Circle":newElement = new Circle({...element});
+            case "Circle":newElement = new Circle({...element}, this.props.changeSelected);
                 break;
             case "Rect":newElement = new Rect({...element});
                 break;
@@ -214,8 +214,7 @@ class OperationBar extends React.Component {
                         Regulator
                     </div>
                     { this.state.openKey === "Regulator" ? (
-                        <div
-                        style={{ overflowY: "scroll", overflowX: "hidden", width: "100%", flex: "auto", webkitFlex: "auto" }}>
+                        <div className="regulator-list">
                         <Regulator readjust={this.readjust} selected={this.props.selected}/>
                     </div>) : null }
                 </div>

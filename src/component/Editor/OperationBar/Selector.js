@@ -2,7 +2,6 @@ import {Icon} from "antd";
 import React from "react";
 
 function Selector(props) {
-    // if (props.child !== undefined) {
     const selectorItem = props.child.map((shape, index) => (
         <div className="selector_item" key={index}>
             <div className="item_id" onClick={() => props.select(shape)}>{ shape.shape }</div>
@@ -27,16 +26,6 @@ function Selector(props) {
             </div>
         </div>
     )
-    // }
-    // else {
-    //     return (
-    //         <div className="selector">
-    //             <div className="selector_title">{props.title}</div>
-    //             <div className="selector_items">
-    //             </div>
-    //         </div>
-    //     )
-    // }
 }
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Tabs, Input, Select } from "antd";
 import 'antd/dist/antd.css';
-import '../../css/AnimationEditor/AnimationEditor.css';
+import '../../css/ElementEditor/AnimationEditor.css';
 
 const { TabPane } = Tabs;
 const { Option } = Select;

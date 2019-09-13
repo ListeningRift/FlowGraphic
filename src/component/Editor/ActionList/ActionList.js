@@ -85,7 +85,7 @@ class ActionList extends React.Component {
                     <div
                         style={{ width: "100%", color: "#E7EAED", height: "30px", lineHeight: "30px", paddingLeft: "8px" }}>
                         ActionList</div>
-                    <div style={{ width: "100%", height: "calc(100% - 30px)", overflowY: "scroll", overflowX: "hidden",}}>
+                    <div className="action-items">
                         { actionItems }
                         <div id="new-plus">
                             <svg t="1563954469672" className="icon" viewBox="0 0 1024 1024" version="1.1"

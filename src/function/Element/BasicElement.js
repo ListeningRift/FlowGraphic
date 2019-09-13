@@ -3,7 +3,7 @@ import React from 'react';
 import SelectBox from "./SelectedBox";
 
 class Circle {
-    constructor({cx, cy, r, stroke, strokeWidth, strokeOpacity, fill, fillOpacity}) {
+    constructor({cx, cy, r, stroke, strokeWidth, strokeOpacity, fill, fillOpacity}, onClick) {
         this.cx = cx;
         this.cy = cy;
         this.r = r;
@@ -15,52 +15,57 @@ class Circle {
         this.shape = "Circle";
         this.allAnimate = [];
         this.previewAnimate = [];
+        this.onClick = onClick;
     }
 
-    addAnimate(animate) {
+    addAnimate = animate => {
         this.allAnimate = this.allAnimate.concat(animate)
-    }
+    };
 
-    result() {
-        return <circle cx={this.cx} cy={this.cy} r={this.r}
+    result = () => {
+        return (<circle cx={this.cx} cy={this.cy} r={this.r}
                        stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}>
             { this.allAnimate.map(animate => animate.result()) }
-            </circle>
-    }
+            </circle>)
+    };
 
-    editor() {
-        return <circle cx={this.cx * 0.5} cy={this.cy * 0.5} r={this.r * 0.5}
+
+    editor = () => {
+        return (<circle cx={this.cx * 0.5} cy={this.cy * 0.5} r={this.r * 0.5}
                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
-                       fill={this.fill} fillOpacity={this.fillOpacity}>
+                       fill={this.fill} fillOpacity={this.fillOpacity} onClick={() => this.onClick(this)}>
             { this.previewAnimate.map(animate => animate.editor()) }
-            </circle>
-    }
+            </circle>)
+    };
 
-    list() {
-        return <circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
+
+    list = () => {
+        return (<circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
-                       fill={this.fill} fillOpacity={this.fillOpacity}/>
-    }
+                       fill={this.fill} fillOpacity={this.fillOpacity}/>)
+    };
 
-    cover() {
-        return <circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
+    cover = () => {
+        return (<circle cx={this.cx * 0.12} cy={this.cy * 0.12} r={this.r * 0.12}
                        stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                        fill={this.fill} fillOpacity={this.fillOpacity}>
             { this.allAnimate.map(animate => animate.result()) }
-        </circle>
-    }
+        </circle>)
+    };
 
-    selected() {
-        return (
-            <g>
+
+    selected = () => {
+        return (<g>
                 {this.editor()}
                 <SelectBox x={(this.cx - this.r) * 0.5} y={(this.cy - this.r) * 0.5}
                            width={this.r} height={this.r}/>
             </g>
         )
-    }
+    };
 }
+
+
 
 class Rect {
     constructor({x, y, width, height, stroke, strokeWidth, strokeOpacity, fill, fillOpacity}) {
@@ -78,43 +83,42 @@ class Rect {
         this.previewAnimate = [];
     }
 
-    addAnimate(animate) {
+    addAnimate = animate => {
         this.allAnimate = this.allAnimate.push(animate)
-    }
+    };
 
-    result() {
-        return <rect x={this.x} y={this.y} width={this.width} height={this.height}
+    result = () => {
+        return (<rect x={this.x} y={this.y} width={this.width} height={this.height}
                      stroke={this.stroke} strokeWidth={this.strokeWidth} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}>
             { this.allAnimate.map(animate => animate.result()) }
-            </rect>
-    }
+            </rect>)
+    };
     
-    editor() {
-        return <rect x={this.x * 0.5} y={this.y * 0.5} width={this.width * 0.5} height={this.height * 0.5}
+    editor = () => {
+        return (<rect x={this.x * 0.5} y={this.y * 0.5} width={this.width * 0.5} height={this.height * 0.5}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.5} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}>
             { this.previewAnimate.map(animate => animate.editor()) }
-            </rect>
-    }
+            </rect>)
+    };
     
-    list() {
-        return <rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
+    list = () => {
+        return (<rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
-                     fill={this.fill} fillOpacity={this.fillOpacity}/>
-    }
+                     fill={this.fill} fillOpacity={this.fillOpacity}/>)
+    };
 
-    cover() {
-        return <rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
+    cover = () => {
+        return (<rect x={this.x * 0.12} y={this.y * 0.12} width={this.width * 0.12} height={this.height * 0.12}
                      stroke={this.stroke} strokeWidth={this.strokeWidth * 0.12} strokeOpacity={this.strokeOpacity}
                      fill={this.fill} fillOpacity={this.fillOpacity}>
             { this.allAnimate.map(animate => animate.result()) }
-        </rect>
-    }
+        </rect>)
+    };
 
-    selected() {
-        return (
-            <g>
+    selected = () => {
+        return (<g>
                 {this.editor()}
                 <SelectBox x={this.x * 0.5} y={this.y * 0.5}
                            width={this.width * 0.5} height={this.height * 0.5}/>
@@ -139,9 +143,9 @@ class Ellipse {
         this.previewAnimate = [];
     }
 
-    addAnimate(animate) {
+    addAnimate = animate => {
         this.allAnimate = this.allAnimate.push(animate)
-    }
+    };
 
     result() {
         return <ellipse cx={this.cx} cy={this.cy} rx={this.rx} ry={this.ry}
