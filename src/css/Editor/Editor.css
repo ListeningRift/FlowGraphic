@@ -1,4 +1,4 @@
-#editor {
+#canvas {
     background: white;
     width: 50vw;
     height: 50vh;
@@ -7,7 +7,7 @@
     top: 25%;
 }
 
-#action_list {
+#action-list {
     width: 16%;
     height: calc(100% - 38px);
     background: #242424;
@@ -24,22 +24,12 @@
     top: 0;
 }
 
-#operation_bar {
+#operation-bar {
     width: 30%;
     height: 95%;
     background: #242424;
     position: absolute;
     top: 5%;
     right: 0;
-}
-
-#animation_bar {
-    position: absolute;
-    left: 16%;
-    bottom: 0;
-    width: 54%;
-    height: calc(86% - 50vh + 35px);
-    background-color: #242424;
-    border-right: 1px solid #E7EAED;
 }
 

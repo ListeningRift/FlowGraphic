@@ -72,14 +72,19 @@ class OperationBar extends React.Component {
         let newElement;
         switch (shape) {
             case "Circle":newElement = new Circle({cx:0, cy:0, r:0}, this.props.changeSelected);
+                this.props.changeMaking("Circle");
                 break;
-            case "Rect":newElement = new Rect({x:0, y:0, width:0, height:0});
+            case "Rect":newElement = new Rect({x:0, y:0, width:0, height:0}, this.props.changeSelected);
+                this.props.changeMaking("Rect");
                 break;
-            case "Ellipse":newElement = new Ellipse({cx:0, cy:0, rx:0, ry:0});
+            case "Ellipse":newElement = new Ellipse({cx:0, cy:0, rx:0, ry:0}, this.props.changeSelected);
+                this.props.changeMaking("Ellipse");
                 break;
-            case "Line":newElement = new Line({x1:0, y1:0, x2:0, y2:0, stroke:"black"});
+            case "Line":newElement = new Line({x1:0, y1:0, x2:0, y2:0, stroke:"black"}, this.props.changeSelected);
+                this.props.changeMaking("Line");
                 break;
-            case "Text":newElement = new Text({x:0, y:0, content: "New"});
+            case "Text":newElement = new Text({x:0, y:0, content: "New"}, this.props.changeSelected);
+                this.props.changeMaking("Text");
                 break;
         }
         if (preview[0] !== NewAction) {
@@ -99,13 +104,13 @@ class OperationBar extends React.Component {
         switch (element.shape) {
             case "Circle":newElement = new Circle({...element}, this.props.changeSelected);
                 break;
-            case "Rect":newElement = new Rect({...element});
+            case "Rect":newElement = new Rect({...element}, this.props.changeSelected);
                 break;
-            case "Ellipse":newElement = new Ellipse({...element});
+            case "Ellipse":newElement = new Ellipse({...element}, this.props.changeSelected);
                 break;
-            case "Line":newElement = new Line({...element});
+            case "Line":newElement = new Line({...element}, this.props.changeSelected);
                 break;
-            case "Text":newElement = new Text({...element});
+            case "Text":newElement = new Text({...element}, this.props.changeSelected);
                 break;
         }
         preview.push(newElement);

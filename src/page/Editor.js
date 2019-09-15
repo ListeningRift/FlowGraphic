@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/Editor/Editor.css';
+import Canvas from "../component/Editor/Canvas/Canvas";
 import MenuBar from '../component/Editor/MenuBar/MenuBar';
 import ActionList from '../component/Editor/ActionList/ActionList';
 import OperationBar from "../component/Editor/OperationBar/OperationBar";
@@ -14,9 +15,12 @@ class Editor extends React.Component {
             actionList: [],
 
             // preview为当前编辑栏中的动作
-            preview: undefined,
+            preview: [],
             // select编辑栏中动作被选中元素
             selected: undefined,
+
+            // 元素构造状态
+            making: "",
 
             // 元素组合状态，true时为元素组合状态，false时正常状态
             groupState: false,
@@ -62,6 +66,13 @@ class Editor extends React.Component {
         });
     };
 
+    // making更改
+    changeMaking = makingElement => {
+        this.setState({
+            making: makingElement
+        })
+    };
+
     // groupState更改
     changeGroupState = newGroupState => {
         this.setState({
@@ -90,13 +101,6 @@ class Editor extends React.Component {
         })
     };
 
-    // 取消元素选中
-    unselect = () => {
-        this.setState({
-            selected: undefined
-        })
-    };
-
     //对元素进行更改
     changeElement = element => {
         const { actionList, preview, selected } = this.state;
@@ -106,31 +110,26 @@ class Editor extends React.Component {
     };
 
     render() {
-        console.log("render");
-        const { preview, selected } = this.state;
-        let editor;
-        if (preview !== undefined) {
-            editor = preview.map((preview) => {
-                if (preview === selected) {
-                    return preview.selected()
-                } else {
-                    return preview.editor()
-                }
-            })
-        }
+
         return (
-            <div id="canvas"
+            <div id="editor"
                  style={{ background: "#3F3F3F",
                      width: "100%", height: "100%" }}>
                 <div id="menubar">
                     <MenuBar/>
                 </div>
-                <div id="editor" onClick={this.unselect}>
-                    <svg width="100%" height="100%">
-                        { editor }
-                    </svg>
+                <div id="canvas">
+                    <Canvas
+                        actionList={this.state.actionList}
+                        preview={this.state.preview}
+                        selected={this.state.selected}
+                        making={this.state.making}
+
+                        changeSelected={this.changeSelected}
+                        changeMaking={this.changeMaking}
+                        changeActionList={this.changeActionList}/>
                 </div>
-                <div id="action_list" onClick={this.unselect}>
+                <div id="action-list">
                     <ActionList
                         actionList={this.state.actionList}
                         combinationState={this.state.combinationState}
@@ -143,17 +142,19 @@ class Editor extends React.Component {
                         changeCombinationAction={this.changeCombinationAction}
                     />
                 </div>
-                <div id="operation_bar">
+                <div id="operation-bar">
                     <OperationBar
                         actionList={this.state.actionList}
                         preview={this.state.preview}
                         selected={this.state.selected}
+                        making={this.state.making}
                         groupState={this.state.groupState}
                         groupElement={this.state.groupElement}
 
                         changeElement={this.changeElement}
                         changeActionList={this.changeActionList}
                         changeSelected={this.changeSelected}
+                        changeMaking={this.changeMaking}
                         changeGroupState={this.changeGroupState}
                         changeGroupElement={this.changeGroupElement}/>
                 </div>

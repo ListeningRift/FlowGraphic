@@ -25,6 +25,12 @@ class Circle {
         e.stopPropagation();
     };
 
+    draw(cx, cy, r) {
+        this.cx = cx;
+        this.cy = cy;
+        this.r = r;
+    }
+
     addAnimate(animate) {
         this.allAnimate = this.allAnimate.concat(animate)
     }
@@ -99,6 +105,13 @@ class Rect {
         e.stopPropagation();
     };
 
+    draw(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
     addAnimate(animate) {
         this.allAnimate = this.allAnimate.push(animate)
     }
@@ -163,14 +176,21 @@ class Ellipse {
         this.onclick = onclick;
     }
 
-    addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
-    }
-
     onClick = e => {
         this.onclick(this);
         e.stopPropagation();
     };
+
+    draw(cx, cy, rx, ry) {
+        this.cx = cx;
+        this.cy = cy;
+        this.rx = rx;
+        this.ry = ry;
+    }
+
+    addAnimate(animate) {
+        this.allAnimate = this.allAnimate.push(animate)
+    }
 
     result() {
         return <ellipse cx={this.cx} cy={this.cy} rx={this.rx} ry={this.ry}
@@ -229,14 +249,22 @@ class Line {
         this.onclick = onclick;
     }
 
-    addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
-    }
-
     onClick = e => {
         this.onclick(this);
         e.stopPropagation();
     };
+
+    draw(x1, y1, x2, y2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        this.stroke = "black"
+    }
+
+    addAnimate(animate) {
+        this.allAnimate = this.allAnimate.push(animate)
+    }
 
     result() {
         return <line x1={this.x1} y1={this.y1} x2={this.x2} y2={this.y2}
@@ -298,14 +326,19 @@ class Text {
         this.onclick = onclick;
     }
 
-    addAnimate(animate) {
-        this.allAnimate = this.allAnimate.push(animate)
-    }
-
     onClick = e => {
         this.onclick(this);
         e.stopPropagation();
     };
+
+    draw(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    addAnimate(animate) {
+        this.allAnimate = this.allAnimate.push(animate)
+    }
 
     result() {
         return <text x={this.x} y={this.y}
